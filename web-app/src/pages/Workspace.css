@@ -1,0 +1,117 @@
+/* File: web-app/src/pages/Workspace.css (TẠO FILE MỚI) */
+
+.workspace-layout {
+    display: flex;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: auto;
+    align-items: flex-start !important;
+}
+
+/* Sidebar chứa danh sách task */
+.task-sidebar {
+    flex: 1;
+    min-width: 300px;
+}
+
+.task-sidebar h2 {
+    margin-bottom: 1.5rem;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.task-list-item {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.task-list-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.task-list-item.selected {
+    background: #4b89ff;
+    border-color: #4b89ff;
+}
+
+.task-list-item p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.task-list-item small {
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+/* Khu vực làm việc chính */
+.workspace-main {
+    flex: 2.5;
+}
+
+.workspace-main .dashboard-features {
+    text-align: left;
+}
+
+.cooking-area {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #444;
+}
+
+.cooking-area h3 {
+    margin-bottom: 1rem;
+}
+
+/* (Mượn từ TaskListPage.css) */
+.upload-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    border: 1px dashed #ccc;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.upload-section input[type="file"] {
+    /* Style cho input file cho đẹp hơn */
+    color: #ccc;
+}
+
+/* Mô phỏng khu vực làm việc */
+.transcriber-notes {
+    width: 100%;
+    min-height: 200px;
+    background: #f4f4f4;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+}
+
+.arranger-tools {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.arranger-tools label {
+    background: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+}

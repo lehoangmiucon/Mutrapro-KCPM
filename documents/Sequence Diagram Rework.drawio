@@ -1,0 +1,150 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="28.2.9">
+  <diagram name="Trang-1" id="najZXa4r2jaCGoPFga-f">
+    <mxGraphModel dx="1603" dy="865" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="rPQGoJMP12vJAvO3N65F-2" value="User(Actor)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+          <mxGeometry x="100" y="300" width="20" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-3" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="130" y="324.65999999999997" as="sourcePoint" />
+            <mxPoint x="270" y="324.65999999999997" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-4" value="Nhập email, pass&lt;div&gt;Bấm &quot;Đăng nhập&quot;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="140" y="290" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-5" value="Web App (React)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="270" y="310" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-6" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="324.65999999999997" as="sourcePoint" />
+            <mxPoint x="510" y="325" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-7" value="Gọi API:&lt;div&gt;authApi.login()&amp;nbsp; &amp;nbsp;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="400" y="290" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-8" value="API Gateway" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="510" y="310" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-9" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="600" y="324.63" as="sourcePoint" />
+            <mxPoint x="700" y="325" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-10" value=" POST /login (đã proxy)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="617.5" y="290" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-40" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="rPQGoJMP12vJAvO3N65F-11" target="rPQGoJMP12vJAvO3N65F-14" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-11" value="Auth Service " style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="700" y="310" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-13" value="Trả về (user)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="820" y="370" width="90" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="rPQGoJMP12vJAvO3N65F-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="890" y="255" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-14" value="Xác thực mật khẩu" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="700" y="240" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-16" value="Đăng nhập thất bại" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="800" y="220" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-18" value="Hiển thị lỗi &quot;Email hoặc mật khẩu không đúng!&quot;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="890" y="210" width="100" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-47" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="rPQGoJMP12vJAvO3N65F-14" target="rPQGoJMP12vJAvO3N65F-25" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="687.5" y="180" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="rPQGoJMP12vJAvO3N65F-25" target="rPQGoJMP12vJAvO3N65F-30" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="500" y="180.22222222222223" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-25" value="Tạo token (JWT)" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="550" y="160" width="115" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-28" value="Đăng nhập thành công" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="460" y="140" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" parent="1" source="rPQGoJMP12vJAvO3N65F-30" target="rPQGoJMP12vJAvO3N65F-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-30" value="Lưu token, gọi login(user)&lt;div&gt;Chuyển hướng /dashboard&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="290" y="160" width="165" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-32" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="rPQGoJMP12vJAvO3N65F-33" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="790" y="324.78999999999996" as="sourcePoint" />
+            <mxPoint x="860" y="325" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="rPQGoJMP12vJAvO3N65F-33" target="rPQGoJMP12vJAvO3N65F-11" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="930" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-33" value="Database (MySQL) " style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="960" y="307.5" width="100" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-35" value="SELECT * FROM users&lt;div&gt;WHERE email = ?&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="790" y="290" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-54" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="540" y="380" as="sourcePoint" />
+            <mxPoint x="540" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-55" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="380" as="sourcePoint" />
+            <mxPoint x="540" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-56" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" target="rPQGoJMP12vJAvO3N65F-5" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="380" as="sourcePoint" />
+            <mxPoint x="380" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-60" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1080" y="400" as="sourcePoint" />
+            <mxPoint x="560" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-61" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1080" y="400" as="sourcePoint" />
+            <mxPoint x="1080" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-62" value="" style="endArrow=none;html=1;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="990" y="250" as="sourcePoint" />
+            <mxPoint x="1080" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rPQGoJMP12vJAvO3N65F-63" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.562;entryY=1.035;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="rPQGoJMP12vJAvO3N65F-8" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="560" y="400" as="sourcePoint" />
+            <mxPoint x="610" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

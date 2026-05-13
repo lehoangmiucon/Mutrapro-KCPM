@@ -1,0 +1,240 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- LỚP NỀN MỚI CHO TOÀN BỘ APP --- */
+.app-background {
+  position: relative;
+  min-height: 100vh;
+}
+
+.app-background::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  background-image: url('./images/wallpaper_background.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px) brightness(0.6);
+  z-index: -1;
+}
+
+/* --- TRANG CHUNG (DASHBOARD, PROFILE, V.V.) --- */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  text-align: center;
+  color: #fff; /* <-- FIX LỖI CHỮ ĐEN NẰM Ở ĐÂY */
+}
+
+/* --- FORM ĐĂNG NHẬP / ĐĂNG KÝ --- */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+  background-color: transparent;
+  min-height: calc(100vh - 80px);
+}
+
+.form-card {
+  background: rgba(10, 10, 10, 0.65);
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 100%;
+  max-width: 420px;
+  color: #fff;
+}
+
+.form-card h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #fff; /* <-- THÊM VÀO ĐỂ TIÊU ĐỀ FORM MÀU TRẮNG */
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ccc; /* Label màu xám nhạt */
+}
+
+.form-group input, .form-group select {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 4px;
+}
+
+.form-button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #4b89ff;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #3a75e8;
+}
+
+.error-message {
+  color: #ff8a8a; /* Đổi màu lỗi sang đỏ nhạt cho dễ đọc trên nền tối */
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* --- CÁC BOX TRÊN DASHBOARD --- */
+.dashboard-features {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9; /* Box này có nền trắng... */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  color: #111; /* ...nên chữ bên trong nó phải màu đen */
+}
+
+.dashboard-features h3 {
+  margin-top: 0;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.dashboard-features ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.dashboard-features li {
+  margin-bottom: 10px;
+}
+
+.dashboard-features a {
+  text-decoration: none;
+  color: #0051ff;
+  font-weight: bold;
+}
+
+.dashboard-features a:hover {
+  text-decoration: underline;
+}
+
+.file-download-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.file-download-link:hover {
+  text-decoration: underline;
+}
+
+/* --- HOMEPAGE (GHI ĐÈ LẠI ĐỂ NÓ KHÔNG BỊ BLUR) --- */
+.hero-container {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/wallpaper_background.jpg');
+  background-size: cover;
+  background-position: center;
+  height: calc(100vh - 80px); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  padding: 0 20px;
+  /* Quan trọng: đặt z-index cao hơn lớp nền mờ */
+  position: relative; 
+  z-index: 1;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.hero-button {
+  padding: 14px 32px;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #111;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.hero-button:hover {
+  background-color: #4b89ff;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-bottom: none;
+}
+
+.form-group select {
+  background-color: rgba(255,255,255,0.9);
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.75rem;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #4b89ff;
+  box-shadow: 0 0 6px #4b89ff80;
+}
+
+
+
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,272 @@
+version: '3.8'
+
+services:
+  # Dịch vụ Cơ sở dữ liệu MySQL
+  mysql_db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+      - mysql_data:/var/lib/mysql
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci 
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    networks:
+      - mutrapro-network
+
+  # === KHỐI REDIS CACHE ĐÃ ĐƯỢC THÊM VÀO ĐÚNG VỊ TRÍ ===
+  redis_cache:
+    image: redis:6-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - mutrapro-network
+  # === KẾT THÚC KHỐI THÊM MỚI ===
+
+  # === THÊM SERVICE RABBITMQ MỚI DƯỚI ĐÂY ===
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    restart: always
+    ports:
+      # Port 5672: Cho các service (Node.js) kết nối
+      - "5672:5672"
+      # Port 15672: Cho bạn xem giao diện web quản lý
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    networks:
+      - mutrapro-network
+  # === KẾT THÚC PHẦN THÊM MỚI ===
+
+  # ================== START: THÊM MỚI NIFI ==================
+  nifi:
+    image: apache/nifi:1.23.2
+    restart: always
+    ports:
+      # Ní sẽ truy cập giao diện NiFi qua cổng 9090
+      - "9090:8080"
+    environment:
+      - NIFI_WEB_HTTP_PORT=8080
+      # Một key bí mật, ní có thể đổi thành gì cũng được
+      - NIFI_SENSITIVE_PROPS_KEY=daylamotcaisupersecretkey123
+    volumes:
+      # Mount file .jar của MySQL vào thư viện của NiFi
+      # Đảm bảo file này tồn tại ở thư mục gốc của project!
+      - ./mysql-connector-j-8.0.33.jar:/opt/nifi/nifi-current/lib/mysql-connector-j-8.0.33.jar
+      # Volumes để NiFi lưu trữ flow
+      - nifi_data:/opt/nifi/nifi-current/database_repository
+      - nifi_conf:/opt/nifi/nifi-current/conf
+    depends_on:
+      - mysql_db # Đảm bảo NiFi khởi động sau CSDL
+    networks:
+      - mutrapro-network
+  # ================== END: THÊM MỚI NIFI ==================
+  
+  # --- CÁC SERVICE BACKEND ĐÃ ĐƯỢC SỬA LẠI PHẦN BUILD ---
+  auth-service:
+    build:
+      context: .
+      dockerfile: ./services/auth-service/Dockerfile
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_AUTH_NAME=mutrapro_auth
+      - JWT_SECRET=${JWT_SECRET}
+      - SERVICE_NAME=auth-service
+    volumes:
+      - ./logs/auth-service:/app/logs
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    networks:
+      - mutrapro-network
+
+  order-service:
+    build:
+      context: .
+      dockerfile: ./services/order-service/Dockerfile
+    restart: always
+    ports:
+      - "3002:3002"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_ORDER_NAME=mutrapro_order
+      - SERVICE_NAME=order-service
+    volumes:
+      - ./logs/order-service:/app/logs
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    networks:
+      - mutrapro-network
+
+  task-service:
+    build:
+      context: .
+      dockerfile: ./services/task-service/Dockerfile
+    restart: always
+    ports:
+      - "3003:3003"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_TASK_NAME=mutrapro_task
+      - SERVICE_NAME=task-service
+    volumes:
+      - ./logs/task-service:/app/logs
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    networks:
+      - mutrapro-network
+
+  file-service:
+    build:
+      context: .
+      dockerfile: ./services/file-service/Dockerfile
+    restart: always
+    ports:
+      - "3004:3004"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_FILE_NAME=mutrapro_file
+      - SERVICE_NAME=file-service
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs/file-service:/app/logs
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    networks:
+      - mutrapro-network
+
+  studio-service:
+    build:
+      context: .
+      dockerfile: ./services/studio-service/Dockerfile
+    restart: always
+    ports:
+      - "3005:3005"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_STUDIO_NAME=mutrapro_studio
+      - SERVICE_NAME=studio-service
+    volumes:
+      - ./logs/studio-service:/app/logs
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    networks:
+      - mutrapro-network
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: ./services/notification-service/Dockerfile
+    restart: always
+    ports:
+      - "3006:3006"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NOTIFICATION_NAME=mutrapro_notification
+      - SERVICE_NAME=notification-service
+    volumes:
+      - ./logs/notification-service:/app/logs
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    networks:
+      - mutrapro-network
+
+# ================== START: THÊM MỚI ANALYTICS-SERVICE ==================
+  analytics-service:
+    build:
+      context: .
+      dockerfile: ./services/analytics-service/Dockerfile
+    restart: always
+    ports:
+      - "3008:3008" # Chạy trên cổng 3008
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      # Nó sẽ kết nối vào CSDL báo cáo MỚI
+      - DB_ANALYTICS_NAME=mutrapro_analytics
+      - SERVICE_NAME=analytics-service
+    volumes:
+      - ./logs/analytics-service:/app/logs
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    networks:
+      - mutrapro-network
+  # ================== END: THÊM MỚI ANALYTICS-SERVICE ==================
+
+  api-gateway:
+    build:
+      context: ./services/api-gateway
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3007:3007"
+    depends_on:
+      - auth-service
+      - order-service
+      - task-service
+      - file-service
+      - studio-service
+      - notification-service
+      - analytics-service
+    networks:
+      - mutrapro-network
+
+  # Ứng dụng web cho người dùng (giữ nguyên)
+  web-app:
+    build: ./web-app
+    restart: always
+    ports:
+      - "3000:80" # Đã sửa port 3000 -> 80 cho đúng với Nginx
+    environment:
+      - REACT_APP_API_GATEWAY_URL=http://api-gateway:3007
+    networks:
+      - mutrapro-network
+
+# Định nghĩa network chung
+networks:
+  mutrapro-network:
+    driver: bridge
+
+# Định nghĩa volumes
+volumes:
+  mysql_data:
+    driver: local
+  uploads:
+    driver: local
+  nifi_data:
+    driver: local
+  nifi_conf:
+    driver: local

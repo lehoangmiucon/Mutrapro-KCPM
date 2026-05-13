@@ -1,0 +1,41 @@
+/* web-app/src/pages/CoordinatorDashboard.css (FILE MỚI) */
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.filter-buttons button {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #4b89ff;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.filter-buttons button:hover {
+    background-color: rgba(75, 137, 255, 0.2);
+}
+
+.filter-buttons button.active {
+    background-color: #4b89ff;
+    color: white;
+}
+
+/* Thêm style cho status badge (tái sử dụng từ StudioAdmin) */
+/* Đảm bảo các status mới cũng có màu */
+.status-badge.status-pending { background-color: #ffc107; color: #333; }
+.status-badge.status-assigned { background-color: #17a2b8; }
+.status-badge.status-in_progress { background-color: #007bff; }
+.status-badge.status-completed { background-color: #28a745; }
+.status-badge.status-revision_requested { background-color: #fd7e14; }
+.status-badge.status-paid { background-color: #6f42c1; }
+.status-badge.status-cancelled { background-color: #6c757d; }
+.status-badge.status-fixed { background-color: #0dcaf0; }

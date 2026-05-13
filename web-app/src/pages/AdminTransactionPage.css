@@ -1,0 +1,31 @@
+/* File: web-app/src/pages/AdminTransactionPage.css (TẠO MỚI) */
+
+.admin-transaction-page {
+    /* Tái sử dụng style từ .admin-dashboard */
+    align-items: flex-start !important;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.admin-transaction-page h1 {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+/* Tái sử dụng .admin-table từ StudioAdminDashboard.css */
+/* Thêm style cho các nút hành động */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons .form-button {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+
+/* Thêm màu cho payment status badge */
+.status-badge.status-paid { background-color: #28a745; }
+.status-badge.status-pending { background-color: #ffc107; color: #333; }
+.status-badge.status-failed { background-color: #dc3545; }

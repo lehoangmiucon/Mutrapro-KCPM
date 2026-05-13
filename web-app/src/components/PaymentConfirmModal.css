@@ -1,0 +1,30 @@
+/* web-app/src/components/PaymentConfirmModal.css */
+.payment-modal h2 {
+    color: #333; /* Chữ trong modal màu đen */
+}
+
+.payment-modal p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.order-review-info {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: left;
+}
+
+.order-review-info p {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.order-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4b89ff !important;
+    text-align: center;
+    margin-top: 1rem;
+}
