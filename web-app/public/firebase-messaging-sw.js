@@ -3,26 +3,21 @@ importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 
 const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: ""
+  apiKey: "AIzaSyCR2EouiicDQLa_IsATzRKMUm2zdArrfoo",
+  authDomain: "mutrapro-test.firebaseapp.com",
+  projectId: "mutrapro-test",
+  storageBucket: "mutrapro-test.firebasestorage.app",
+  messagingSenderId: "14920393633",
+  appId: "1:14920393633:web:de2730da6c4f4c318221e0"
 };
 
-// Khởi tạo app (compat) cho service worker
 firebase.initializeApp(firebaseConfig);
-
 const messaging = firebase.messaging();
 
-// Nhận và hiển thị thông báo khi web đang ở background
 messaging.onBackgroundMessage((payload) => {
-    console.log(' 📩  [firebase-messaging-sw.js] Received background message ', payload);
-
-    const { title, body, icon } = payload.notification;
-    self.registration.showNotification(title, {
-        body,
-        icon: icon || '/logo192.png'
-    });
+  const { title, body, icon } = payload.notification;
+  self.registration.showNotification(title, {
+    body,
+    icon: icon || '/logo192.png'
+  });
 });
