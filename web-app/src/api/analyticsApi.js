@@ -1,7 +1,7 @@
 // File: web-app/src/api/analyticsApi.js
 import axios from 'axios';
-// Trỏ vào API Gateway, route mới
-const API_URL = 'http://localhost:3007/api/analytics';
+// Đổi đường dẫn trỏ về orders để lấy data real-time trực tiếp từ CSDL
+const API_URL = 'http://localhost:3007/api/orders';
 
 const getStats = async () => {
   try {
