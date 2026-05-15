@@ -1,20 +1,21 @@
 // web-app/src/pages/TaskListPage.js
 import React, { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '../context/AuthContext'; // Dùng useAuth cho gọn
+import { useAuth } from '../context/AuthContext'; // DĂ¹ng useAuth cho gá»n
 import { toast } from 'react-toastify';
 import taskApi from '../api/taskApi';
 import fileApi from '../api/fileApi';
 import orderApi from '../api/orderApi';
 
-// --- TẠO MỘT COMPONENT NHỎ ĐỂ XỬ LÝ NÚT TẢI FILE ---
+// --- Táº O Má»˜T COMPONENT NHá» Äá»‚ Xá»¬ LĂ NĂT Táº¢I FILE ---
 const DownloadFileButton = ({ orderId }) => {
     const [fileInfo, setFileInfo] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [downloading, setDownloading] = useState(false);
 
     useEffect(() => {
         const fetchFile = async () => {
             try {
-                // Chỉ lấy file 'audio' (file gốc của khách hàng)
+                // Chá»‰ láº¥y file 'audio' (file gá»‘c cá»§a khĂ¡ch hĂ ng)
                 const files = await fileApi.getFilesByOrder(orderId);
                 const audioFile = files.find(f => f.file_type === 'audio');
                 if (audioFile) {
@@ -30,30 +31,40 @@ const DownloadFileButton = ({ orderId }) => {
     }, [orderId]);
 
     if (isLoading) {
-        return <small>Đang kiểm tra file...</small>;
+        return <small>Äang kiá»ƒm tra file...</small>;
     }
 
     return fileInfo ? (
-        <a 
-            href={`http://localhost:3004/files/download/${fileInfo.id}`} 
-            className="form-button secondary" // Dùng class có sẵn cho đẹp
+        <button
+            onClick={async () => {
+                setDownloading(true);
+                try {
+                    await fileApi.downloadFile(fileInfo.id, fileInfo.file_name);
+                } catch (error) {
+                    toast.error(error.message || 'Không thể tải file.');
+                } finally {
+                    setDownloading(false);
+                }
+            }}
+            className="form-button secondary"
+            disabled={downloading}
             style={{ textDecoration: 'none', display: 'inline-block', marginBottom: '10px', color: 'white' }}
         >
             Tải file của khách
-        </a>
+        </button>
     ) : (
-        <small>Không có file yêu cầu.</small>
+        <small>KhĂ´ng cĂ³ file yĂªu cáº§u.</small>
     );
 };
 
 
 const TaskListPage = () => {
-    const { user } = useAuth(); // Dùng AuthContext
+    const { user } = useAuth(); // DĂ¹ng AuthContext
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedFiles, setSelectedFiles] = useState({});
 
-    // Dùng useCallback để tránh warning và tối ưu
+    // DĂ¹ng useCallback Ä‘á»ƒ trĂ¡nh warning vĂ  tá»‘i Æ°u
     const fetchTasks = useCallback(async () => {
         if (!user) return;
         setLoading(true);
@@ -62,7 +73,7 @@ const TaskListPage = () => {
             setTasks(data);
         } catch (error) {
             console.error("Failed to fetch tasks:", error);
-            toast.error("Không thể tải danh sách công việc.");
+            toast.error("KhĂ´ng thá»ƒ táº£i danh sĂ¡ch cĂ´ng viá»‡c.");
         } finally {
             setLoading(false);
         }
@@ -72,14 +83,14 @@ const TaskListPage = () => {
         fetchTasks();
     }, [fetchTasks]);
     
-    // Các hàm handle còn lại giữ nguyên logic, chỉ thay alert bằng toast
+    // CĂ¡c hĂ m handle cĂ²n láº¡i giá»¯ nguyĂªn logic, chá»‰ thay alert báº±ng toast
     const handleUpdateStatus = async (taskId, newStatus) => {
         try {
             await taskApi.updateTaskStatus(taskId, newStatus);
-            toast.success(`Đã bắt đầu thực hiện công việc!`);
+            toast.success(`ÄĂ£ báº¯t Ä‘áº§u thá»±c hiá»‡n cĂ´ng viá»‡c!`);
             fetchTasks();
         } catch (error) {
-            toast.error(`Cập nhật thất bại!`);
+            toast.error(`Cáº­p nháº­t tháº¥t báº¡i!`);
         }
     };
 
@@ -90,7 +101,7 @@ const TaskListPage = () => {
     const handleCompleteTask = async (task) => {
         const file = selectedFiles[task.id];
         if (!file) {
-            toast.warn('Vui lòng chọn file sản phẩm trước khi hoàn thành!');
+            toast.warn('Vui lĂ²ng chá»n file sáº£n pháº©m trÆ°á»›c khi hoĂ n thĂ nh!');
             return;
         }
         if (!user) return;
@@ -99,54 +110,54 @@ const TaskListPage = () => {
         const fileType = fileTypeMap[user.role] || 'final';
 
         try {
-            await fileApi.uploadFile(file, task.order_id, user.id, fileType);
+            await fileApi.uploadFile(file, task.order_id, fileType);
             await taskApi.updateTaskStatus(task.id, 'done');
             await orderApi.updateOrderStatus(task.order_id, 'completed');
-            toast.success('Hoàn thành và nộp sản phẩm thành công!');
+            toast.success('HoĂ n thĂ nh vĂ  ná»™p sáº£n pháº©m thĂ nh cĂ´ng!');
             fetchTasks();
         } catch (error) {
-            toast.error('Có lỗi xảy ra, vui lòng thử lại.');
+            toast.error(error.message || 'CĂ³ lá»—i xáº£y ra, vui lĂ²ng thá»­ láº¡i.');
         }
     };
 
-    if (loading) return <div className="page-container"><p>Đang tải danh sách công việc...</p></div>;
+    if (loading) return <div className="page-container"><p>Äang táº£i danh sĂ¡ch cĂ´ng viá»‡c...</p></div>;
 
     return (
         <div className="page-container" style={{ alignItems: 'flex-start', maxWidth: '1200px', margin: 'auto' }}>
-            <h2>Công Việc Của Bạn</h2>
+            <h2>CĂ´ng Viá»‡c Cá»§a Báº¡n</h2>
             {tasks.length === 0 ? (
-                <p>Bạn không có công việc mới nào.</p>
+                <p>Báº¡n khĂ´ng cĂ³ cĂ´ng viá»‡c má»›i nĂ o.</p>
             ) : (
                 <div className="dashboard-features">
-                    {/* Chuyển sang dùng div thay vì table để dễ style hơn */}
+                    {/* Chuyá»ƒn sang dĂ¹ng div thay vĂ¬ table Ä‘á»ƒ dá»… style hÆ¡n */}
                     {tasks.map(task => (
                         <div key={task.id} className="task-item">
-                            <h4>Đơn hàng #{task.order_id} - <span className="task-status">{task.status}</span></h4>
+                            <h4>ÄÆ¡n hĂ ng #{task.order_id} - <span className="task-status">{task.status}</span></h4>
 
-                            {/* --- START SỬA LỖI LOGIC HIỂN THỊ --- */}
+                            {/* --- START Sá»¬A Lá»–I LOGIC HIá»‚N THá» --- */}
                                 {task.status === 'revision_requested' && task.revision_comment ? (
                                     <p style={{ color: '#dc3545', fontWeight: 'bold' }}>
-                                        <strong>Yêu cầu chỉnh sửa:</strong> {task.revision_comment}
+                                        <strong>YĂªu cáº§u chá»‰nh sá»­a:</strong> {task.revision_comment}
                                     </p>
                                 ) : (
-                                    <p><strong>Yêu cầu gốc:</strong> {task.description}</p>
+                                    <p><strong>YĂªu cáº§u gá»‘c:</strong> {task.description}</p>
                                 )}
-                                {/* --- END SỬA LỖI LOGIC --- */}
+                                {/* --- END Sá»¬A Lá»–I LOGIC --- */}
 
-                            <p><small>Ngày giao: {new Date(task.assigned_at).toLocaleDateString()}</small></p>
+                            <p><small>NgĂ y giao: {new Date(task.assigned_at).toLocaleDateString()}</small></p>
 
-                            {/* --- PHẦN LOGIC MỚI NẰM Ở ĐÂY --- */}
+                            {/* --- PHáº¦N LOGIC Má»I Náº°M á» ÄĂ‚Y --- */}
                             <div className="task-actions">
                                 <DownloadFileButton orderId={task.order_id} />
                                 
                                 {task.status === 'assigned' && (
-                                    <button onClick={() => handleUpdateStatus(task.id, 'in_progress')} className="form-button">Bắt đầu</button>
+                                    <button onClick={() => handleUpdateStatus(task.id, 'in_progress')} className="form-button">Báº¯t Ä‘áº§u</button>
                                 )}
                                 {(task.status === 'in_progress' || task.status === 'revision_requested') && (
                                     <div className="upload-section">
                                         <input type="file" onChange={(e) => handleFileChange(e, task.id)} />
                                         <button onClick={() => handleCompleteTask(task)} className="form-button" disabled={!selectedFiles[task.id]}>
-                                            Hoàn thành & Nộp
+                                            HoĂ n thĂ nh & Ná»™p
                                         </button>
                                     </div>
                                 )}
@@ -160,3 +171,4 @@ const TaskListPage = () => {
 };
 
 export default TaskListPage;
+

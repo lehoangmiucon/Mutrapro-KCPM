@@ -56,13 +56,13 @@ const CreateOrderPage = () => {
 
             // Bước 2: Nếu có file, upload file với ID của đơn hàng vừa tạo
             if (file) {
-                await fileApi.uploadFile(file, newOrder.id, user.id, 'audio');
+                await fileApi.uploadFile(file, newOrder.id, 'audio');
             }
 
             toast.success('Tạo đơn hàng thành công!');
             navigate('/orders/history');
         } catch (err) {
-            toast.error('Tạo đơn hàng thất bại. Vui lòng thử lại.');
+            toast.error(err.message || 'Tạo đơn hàng thất bại. Vui lòng thử lại.');
             console.error("Create order failed:", err);
         } finally {
             setLoading(false);

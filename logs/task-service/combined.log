@@ -1,0 +1,4 @@
+{"level":"info","message":"Task Service is running on port 3003","service":"task-service","timestamp":"2026-05-15 13:48:34"}
+{"level":"info","message":"[RabbitMQ] Đang chờ 10s cho RabbitMQ khởi động...","service":"task-service","timestamp":"2026-05-15 13:48:34"}
+{"level":"info","message":"[RabbitMQ] Đang kết nối đến RabbitMQ...","service":"task-service","timestamp":"2026-05-15 13:48:44"}
+{"level":"info","message":"[RabbitMQ] Task Service đang lắng nghe key 'order.revision_requested' trên queue 'task_service_queue'...","service":"task-service","timestamp":"2026-05-15 13:48:44"}

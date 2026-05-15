@@ -10,6 +10,7 @@ import './Workspace.css'; // Dùng file CSS chung
 // (Component DownloadFileButton không đổi)
 const DownloadFileButton = ({ orderId }) => {
     const [fileInfo, setFileInfo] = useState(null);
+    const [downloading, setDownloading] = useState(false);
     useEffect(() => {
         const fetchFile = async () => {
             try {
@@ -24,10 +25,19 @@ const DownloadFileButton = ({ orderId }) => {
     }, [orderId]);
 
     return fileInfo ? (
-        <a href={`http://localhost:3004/files/download/${fileInfo.id}`} className="form-button secondary"
+        <button onClick={async () => {
+            setDownloading(true);
+            try {
+                await fileApi.downloadFile(fileInfo.id, fileInfo.file_name);
+            } catch (error) {
+                toast.error(error.message || 'Không thể tải file.');
+            } finally {
+                setDownloading(false);
+            }
+        }} className="form-button secondary" disabled={downloading}
            style={{ textDecoration: 'none', display: 'inline-block', color: 'white', marginTop: '1rem' }}>
             Tải file âm thanh (MP3)
-        </a>
+        </button>
     ) : <p>Không tìm thấy file âm thanh gốc.</p>;
 };
 
@@ -107,7 +117,7 @@ const TranscriberWorkspacePage = () => {
         setLoading(true);
         try {
             // Bước 1: Upload file
-            await fileApi.uploadFile(uploadFile, selectedTask.order_id, user.id, 'notation');
+            await fileApi.uploadFile(uploadFile, selectedTask.order_id, 'notation');
             // Bước 2: Cập nhật trạng thái task
             await taskApi.updateTaskStatus(selectedTask.id, 'done');
             // Bước 3: Cập nhật trạng thái order
@@ -120,7 +130,7 @@ const TranscriberWorkspacePage = () => {
             setTasks(updatedTasks);
             setSelectedTask(updatedTasks.length > 0 ? updatedTasks[0] : null);
         } catch (error) {
-            toast.error('Nộp sản phẩm thất bại!');
+            toast.error(error.message || 'Nộp sản phẩm thất bại!');
         } finally {
             setLoading(false);
         }

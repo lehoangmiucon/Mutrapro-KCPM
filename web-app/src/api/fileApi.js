@@ -1,50 +1,112 @@
-// web-app/src/api/fileApi.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3007/api/files'; // Địa chỉ của File Service
+const API_URL = 'http://localhost:3007/api/files';
+const MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024;
 
-/**
- * Tải một file lên server.
- * @param {File} file - Đối tượng file được chọn từ input.
- * @param {number} orderId - ID của đơn hàng liên quan.
- * @param {number} uploaderId - ID của người tải lên.
- * @param {string} fileType - Loại file ('notation', 'mix', 'audio').
- * @returns {Promise<object>}
- */
-const uploadFile = async (file, orderId, uploaderId, fileType) => {
-    // Dùng FormData để gửi file
+const FILE_RULES = {
+    audio: ['.mp3', '.mp4', '.m4a', '.wav'],
+    notation: ['.pdf', '.xml', '.mxl', '.musicxml'],
+    mix: ['.mp3', '.wav'],
+    final: ['.mp3', '.wav', '.pdf', '.zip'],
+};
+
+const apiClient = axios.create({
+    baseURL: API_URL,
+});
+
+apiClient.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
+const getApiErrorMessage = (error, fallback = 'Thao tac that bai. Vui long thu lai.') => {
+    return error?.response?.data?.error || error?.response?.data?.message || error?.message || fallback;
+};
+
+const getExtension = (fileName = '') => {
+    const index = fileName.lastIndexOf('.');
+    return index >= 0 ? fileName.slice(index).toLowerCase() : '';
+};
+
+const validateFileBeforeUpload = (file, fileType) => {
+    if (!file) {
+        throw new Error('Vui long chon file truoc khi tai len.');
+    }
+
+    const allowedExtensions = FILE_RULES[fileType];
+    if (!allowedExtensions) {
+        throw new Error('Loai file khong hop le.');
+    }
+
+    if (file.size > MAX_FILE_SIZE_BYTES) {
+        throw new Error('File qua lon. Dung luong toi da la 50MB.');
+    }
+
+    const extension = getExtension(file.name);
+    if (!allowedExtensions.includes(extension)) {
+        throw new Error(`Dinh dang khong hop le. Chi chap nhan: ${allowedExtensions.join(', ')}.`);
+    }
+};
+
+const uploadFile = async (file, orderId, fileType, options = {}) => {
+    validateFileBeforeUpload(file, fileType);
+
     const formData = new FormData();
-    formData.append('file', file);
     formData.append('order_id', orderId);
-    formData.append('uploader_id', uploaderId);
     formData.append('file_type', fileType);
 
+    if (options.coordinatorId) {
+        formData.append('coordinatorId', options.coordinatorId);
+    }
+
+    formData.append('file', file);
+
     try {
-        const response = await axios.post(`${API_URL}/upload`, formData, {
-            headers: {
-                // Header này rất quan trọng khi gửi file
-                'Content-Type': 'multipart/form-data',
-            },
+        const response = await apiClient.post('/upload', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
         });
         return response.data;
     } catch (error) {
-        // Ném lỗi ra để component có thể bắt và xử lý
-        throw error;
+        throw new Error(getApiErrorMessage(error, 'Tai file that bai.'));
     }
 };
 
 const getFilesByOrder = async (orderId) => {
     try {
-        const response = await axios.get(`${API_URL}/files/order/${orderId}`);
+        const response = await apiClient.get(`/files/order/${orderId}`);
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error(getApiErrorMessage(error, 'Khong the tai danh sach file.'));
+    }
+};
+
+const downloadFile = async (fileId, fileName = 'download') => {
+    try {
+        const response = await apiClient.get(`/files/download/${fileId}`, {
+            responseType: 'blob',
+        });
+
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', fileName);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+    } catch (error) {
+        throw new Error(getApiErrorMessage(error, 'Tai file that bai.'));
     }
 };
 
 const fileApi = {
     uploadFile,
     getFilesByOrder,
+    downloadFile,
+    getApiErrorMessage,
 };
 
 export default fileApi;

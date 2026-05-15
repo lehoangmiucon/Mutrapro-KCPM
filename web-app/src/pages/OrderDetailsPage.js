@@ -186,12 +186,13 @@ const OrderDetailsPage = () => {
                         <ul>
                             {files.map(file => (
                                 <li key={file.id}>
-                                    <a
-                                        href={`http://localhost:3004/files/download/${file.id}`}
+                                    <button
+                                        type="button"
+                                        onClick={() => fileApi.downloadFile(file.id, file.file_name).catch(error => toast.error(error.message || 'Không thể tải file.'))}
                                         className="file-download-link"
                                     >
                                         {file.file_name}
-                                    </a>
+                                    </button>
                                     ({file.file_type}) - Tải lên lúc: {new Date(file.created_at).toLocaleString()}
                                 </li>
                             ))}
