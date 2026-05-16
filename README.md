@@ -1,117 +1,137 @@
-🎶 Hệ thống MuTraPro
-- MuTraPro (Music Transcription & Production) là một nền tảng tích hợp, được xây dựng trên kiến trúc microservices , cung cấp các dịch vụ ký âm, phối khí và sản xuất âm nhạc theo yêu cầu một cách hiệu quả và liền mạch.
+# MuTraPro
 
-- Hệ thống cho phép khách hàng chuyển đổi bất kỳ tệp âm thanh đầu vào nào thành bản ký âm chi tiết, yêu cầu phối khí tùy chỉnh, và kết hợp thu âm chuyên nghiệp. Toàn bộ quy trình được quản lý chặt chẽ từ khi nhận yêu cầu, phân công nhiệm vụ, đến khi bàn giao sản phẩm cuối cùng.
+MuTraPro is a web-based music service platform for transcription, arrangement, recording, studio booking, mock payment, feedback, notification, and admin reporting.
 
-🚀 Tính năng nổi bật
+This project uses a Node.js/Express microservice backend with React web frontend and MySQL.
 
-- Quản lý Dịch vụ: Khách hàng upload file âm thanh (MP3, WAV, MP4...) để yêu cầu Ký âm (Transcription), Phối khí (Arrangement), hoặc Thu âm (Recording).
-- Quản lý Quy trình (Workflow):
-    - Điều phối viên (Coordinator) tiếp nhận và phân công nhiệm vụ cho các chuyên viên .
-    - Chuyên viên (Specialist) nhận việc trong "Không gian làm việc" (Workspace) riêng, "cooking" sản phẩm và nộp file .
-    - Khách hàng (Customer) theo dõi tiến độ, thanh toán , yêu cầu chỉnh sửa (revision) , và để lại đánh giá (feedback) .
+## Backend Stack
 
-- Quản lý Phòng thu: Nghệ sĩ (Artist) có thể đặt lịch phòng thu . Quản trị viên phòng thu (Studio Admin) quản lý trạng thái và lịch làm việc của các phòng thu .
-- Thông báo Real-time: Sử dụng WebSockets (Socket.io) để gửi thông báo tức thời về đơn hàng mới, nhiệm vụ mới, cập nhật trạng thái... .
-- Quản trị Hệ thống: Admin có toàn quyền xem báo cáo doanh thu , quản lý người dùng (CRUD) , và xem lịch sử giao dịch .
+- Node.js 18
+- Express
+- MySQL 8
+- Docker Compose
+- JWT authentication
+- bcrypt password hashing
+- Multer file upload
+- Redis cache
+- RabbitMQ for lightweight event messaging
+- Nginx for serving the built React web app
 
-🛠️ Công nghệ sử dụng
-- Backend (Microservices): Node.js, Express.js, MySQL (với mysql2/promise)
-- Frontend: React.js, React Router, Axios, Socket.io Client
-- Cơ sở dữ liệu: MySQL 8.0
-- Containerization: Docker, Docker Compose
-- Web Server (Frontend): Nginx (phục vụ React app đã build)
-- Xác thực: JSON Web Tokens (JWT)
-- Upload File: Multer (trong file-service)
+## Services
 
-🏛️ Kiến trúc hệ thống
-- Project được xây dựng theo kiến trúc Microservices. docker-compose.yml  quản lý toàn bộ các service và network.
-    - mysql_db (Port 3306): Dịch vụ cơ sở dữ liệu MySQL .
-    - auth-service (Port 3001): Xử lý đăng ký, đăng nhập, phân quyền (JWT), và CRUD người dùng .
-    - order-service (Port 3002): Xử lý logic tạo đơn hàng, thanh toán, và feedback .
-    - task-service (Port 3003): Xử lý việc phân công và cập nhật trạng thái công việc .
-    - file-service (Port 3004): Xử lý upload (Multer) và download file cho các đơn hàng .
-    - studio-service (Port 3005): Xử lý logic phòng thu và đặt lịch (booking) .
-    - notification-service (Port 3006): Xử lý thông báo real-time qua Socket.io .
-    - web-app (Port 3000): Giao diện React phục vụ cho tất cả người dùng qua Nginx .
+| Service | Port | Purpose |
+|---|---:|---|
+| api-gateway | 3007 | Single API entrypoint for the web frontend |
+| auth-service | 3001 | Register, login, JWT, profile, admin user management |
+| order-service | 3002 | Service requests, order workflow, mock payment, feedback, revision |
+| task-service | 3003 | Task assignment and specialist work tracking |
+| file-service | 3004 | Secure upload/download and file metadata |
+| studio-service | 3005 | Studio rooms and booking |
+| notification-service | 3006 | Notifications and device token registration |
+| analytics-service | 3008 | Dashboard/report data |
+| web-app | 3000 | React web frontend |
+| MySQL | 3307 | Local host mapping to MySQL container port 3306 |
+| RabbitMQ UI | 15672 | RabbitMQ management |
+| NiFi | 9090 | Optional analytics flow tool |
 
-📋 Yêu cầu hệ thống
-- Trước khi bắt đầu, bạn cần cài đặt:
-    - Docker & Docker Compose: Tải Docker Desktop (Docker Compose đã đi kèm).
-    - Git: (Để clone project).
-    - Trình duyệt web (Chrome, Firefox...)
-- Lưu ý: Bạn không cần cài đặt Node.js, Nginx hay MySQL trên máy cá nhân. Docker sẽ lo toàn bộ việc đó.
+## Environment Setup
 
-🚀 Cài đặt và Khởi chạy
-- Đây là các bước chi tiết để chạy toàn bộ hệ thống trên máy của bạn:
-1. Clone Project:
-# Clone repository về máy (thay bằng URL repo của bạn)
-git clone https://github.com/nguyen-tri-Cyber/mutrapro_system_nhom5.git
+Create `.env` from the sample:
 
-# Di chuyển vào thư mục gốc của project
-cd mutrapro_system
+```powershell
+copy .env.example .env
+```
 
-2. Tạo file môi trường (.env):
-- Tạo một file mới tên là .env trong thư mục gốc (mutrapro_system/) và sao chép nội dung bên dưới vào:
-# Mật khẩu cho user 'root' của MySQL
-DB_PASSWORD=123456
+Required variables:
 
-# Chuỗi bí mật để mã hóa JWT
-# BẮT BUỘC đổi chuỗi này thành một chuỗi ngẫu nhiên, dài và phức tạp
-JWT_SECRET=daylamotcaisupersecretkeyratlaannin_haydoithanhgiatrikhac
+```env
+DB_PASSWORD=change_me
+JWT_SECRET=change_me_to_a_long_random_secret_at_least_32_chars
+INTERNAL_SERVICE_TOKEN=change_me_internal_service_token
+CORS_ORIGIN=http://localhost:3000
+RABBITMQ_DEFAULT_USER=user
+RABBITMQ_DEFAULT_PASS=password
+NIFI_SENSITIVE_PROPS_KEY=change_me_for_demo
+```
 
-3. Build và Chạy Docker
-- Mở terminal của bạn ngay tại thư mục gốc (mutrapro_system/) và chạy lệnh sau:
+Do not commit the real `.env` file.
 
-# Lệnh này sẽ:
-# 1. Build images cho tất cả các services (auth, order, web-app...)
-# 2. Khởi tạo các container
-# 3. Tạo network và volume
-# 4. Chạy ở chế độ "detached" (chạy ngầm)
-docker-compose up --build -d
+## Run With Docker
 
-- Lần chạy đầu tiên có thể mất vài phút để tải image MySQL 8.0 và build image web-app .
+```powershell
+docker compose up --build -d
+docker compose ps
+```
 
-4. Kiểm tra trạng thái
-- Sau khi chạy xong, bạn có thể kiểm tra xem tất cả các container đã "up" chưa: docker-compose ps
-- Bạn sẽ thấy một danh sách các service đang chạy (ví dụ: mutrapro_system-auth-service-1, mutrapro_system-web-app-1,...).
+Health checks:
 
-5. Dừng hệ thống
-- Để dừng toàn bộ hệ thống, chạy lệnh: docker-compose down
+```powershell
+curl http://localhost:3007/api/health
+curl http://localhost:3007/api/health/all
+```
 
-🌐 Truy cập hệ thống
-- Sau khi đã khởi chạy thành công (docker-compose up), bạn có thể truy cập hệ thống:
-- Trang Web (Frontend):
-    - http://localhost:3000
-- Các API (Backend - Dùng để test bằng Postman/Insomnia):
-    - Auth Service: http://localhost:3001
-    - Order Service: http://localhost:3002
-    - Task Service: http://localhost:3003
-    - File Service: http://localhost:3004
-    - Studio Service: http://localhost:3005
-    - Notification Service: http://localhost:3006
+Open the web app:
 
-🔑 Tài khoản mẫu
-- Hệ thống đã tự động tạo sẵn các tài khoản mẫu (từ file init.sql ) để bạn kiểm tra các vai trò.
-- Mật khẩu chung cho tất cả tài khoản: Admin@123
-    - Admin: admin@mutrapro.com
-    - Điều phối viên (Coordinator): dpv@mutrapro.com
-    - Chuyên viên Ký âm (Transcriber): cvka@mutrapro.com
-    - Chuyên viên Phối khí (Arranger): cvpk@mutrapro.com
-    - Nghệ sĩ (Artist): artist@mutrapro.com
-    - Quản trị Phòng thu (Studio Admin): studio@mutrapro.com
+```text
+http://localhost:3000
+```
 
-🔧 Xử lý sự cố (Troubleshooting)
-- Reset toàn bộ cơ sở dữ liệu
-    - Nếu bạn muốn xóa toàn bộ dữ liệu (bao gồm cả các tài khoản, đơn hàng, file đã upload) và bắt đầu lại từ đầu (để init.sql chạy lại), hãy làm theo các bước sau:
-    # 1. Dừng tất cả container và xóa volume
-    # (Cờ -v sẽ xóa volume 'mysql_data' và 'uploads' đã định nghĩa)
-    docker-compose down -v
+## Demo Accounts
 
-    # 2. Build lại và khởi động lại
-    docker-compose up --build -d
+Default demo password:
 
-- Xem Log của một Service cụ thể.
-    - Nếu một service bị lỗi (ví dụ: order-service), bạn có thể xem log của nó: docker-compose logs -f order-service
-    - (Thay order-service bằng tên service bạn muốn xem, ví dụ: auth-service, web-app...)
+```text
+Admin@123
+```
 
+| Role | Email |
+|---|---|
+| Admin | admin@mutrapro.com |
+| Service Coordinator | dpv@mutrapro.com |
+| Transcription Specialist | cvka@mutrapro.com |
+| Arrangement Specialist | cvpk@mutrapro.com |
+| Recording Artist | artist@mutrapro.com |
+| Studio Admin | studio@mutrapro.com |
+
+## Main API Groups
+
+Base URL:
+
+```text
+http://localhost:3007/api
+```
+
+- `POST /auth/register`
+- `POST /auth/login`
+- `GET /auth/verify`
+- `GET /auth/admin/users`
+- `POST /orders`
+- `GET /orders`
+- `GET /orders/customer/:customerId`
+- `PUT /orders/:id/status`
+- `POST /orders/:id/pay`
+- `POST /orders/:id/feedback`
+- `POST /orders/:id/request-revision`
+- `POST /tasks`
+- `GET /tasks/specialist/:specialistId`
+- `PUT /tasks/:id/status`
+- `POST /files/upload`
+- `GET /files/files/order/:orderId`
+- `GET /files/files/download/:fileId`
+- `GET /studio/studios`
+- `POST /studio/bookings`
+- `GET /studio/bookings/all`
+
+Detailed API documentation is in [docs/API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md).
+
+## Common Issues
+
+If Docker cannot connect:
+
+```text
+permission denied while trying to connect to the docker API
+```
+
+Open Docker Desktop, wait until the engine is running, then retry from a PowerShell session with proper permission.
+
+If MySQL port 3306 is already used locally, this project maps MySQL to host port `3307`.

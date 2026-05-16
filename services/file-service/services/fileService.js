@@ -21,7 +21,7 @@ const createFileService = ({ pool, logger }) => {
     const fileRepository = createFileRepository(pool);
 
     return {
-        async uploadFile({ user, body, uploadedFile }) {
+        async uploadFile({ user, token, body, uploadedFile }) {
             if (!uploadedFile) {
                 throw new AppError('No file was uploaded.', 400);
             }
@@ -35,7 +35,7 @@ const createFileService = ({ pool, logger }) => {
                     throw new AppError('File format is not supported for this upload type.', 400);
                 }
 
-                await assertCanUpload({ user, orderId, fileType });
+                await assertCanUpload({ user, token, orderId, fileType });
 
                 const originalName = decodeOriginalName(uploadedFile.originalname);
                 const storedRelativePath = path.posix.join('uploads', path.basename(uploadedFile.path));
@@ -65,20 +65,20 @@ const createFileService = ({ pool, logger }) => {
             }
         },
 
-        async getFilesByOrder({ user, orderId }) {
+        async getFilesByOrder({ user, token, orderId }) {
             const parsedOrderId = parsePositiveInt(orderId, 'orderId');
-            await assertCanReadOrderFiles({ user, orderId: parsedOrderId });
+            await assertCanReadOrderFiles({ user, token, orderId: parsedOrderId });
             return fileRepository.findByOrderId(parsedOrderId);
         },
 
-        async getDownloadInfo({ user, fileId }) {
+        async getDownloadInfo({ user, token, fileId }) {
             const parsedFileId = parsePositiveInt(fileId, 'fileId');
             const fileInfo = await fileRepository.findById(parsedFileId);
             if (!fileInfo) {
                 throw new AppError('File metadata was not found.', 404);
             }
 
-            await assertCanReadOrderFiles({ user, orderId: fileInfo.order_id });
+            await assertCanReadOrderFiles({ user, token, orderId: fileInfo.order_id });
 
             const absolutePath = path.resolve(__dirname, '..', fileInfo.file_path);
             if (!absolutePath.startsWith(UPLOADS_DIR) || !fs.existsSync(absolutePath)) {

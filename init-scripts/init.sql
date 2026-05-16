@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS payment (
     method ENUM('credit_card','paypal','bank_transfer') DEFAULT 'credit_card',
     status ENUM('pending','paid','failed') DEFAULT 'pending',
     transaction_id VARCHAR(255),
+    paid_at DATETIME NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
     INDEX idx_order (order_id),

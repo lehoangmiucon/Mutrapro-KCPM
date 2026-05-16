@@ -1,12 +1,12 @@
-// DÁN LÊN DÒNG 1 CỦA FILE auth-service/index.js
+﻿// DĂN LĂN DĂ’NG 1 Cá»¦A FILE auth-service/index.js
 process.on('unhandledRejection', (reason, promise) => {
-    console.error('!!! LỖI UNHANDLED REJECTION !!!:', reason);
-    promise.catch(err => console.error('!!! LỖI TRONG PROMISE !!!:', err));
-    process.exit(1); // Thoát ngay lập tức
+    console.error('Unhandled promise rejection:', reason);
+    promise.catch(err => console.error('Promise rejection details:', err));
+    process.exit(1); // ThoĂ¡t ngay láº­p tá»©c
 });
 process.on('uncaughtException', (error) => {
-    console.error('!!! LỖI UNCAUGHT EXCEPTION !!!:', error);
-    process.exit(1); // Thoát ngay lập tức
+    console.error('Uncaught exception:', error);
+    process.exit(1); // ThoĂ¡t ngay láº­p tá»©c
 });
 
 const express = require('express');
@@ -14,33 +14,34 @@ const mysql = require('mysql2/promise');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-require('dotenv').config({ path: '../.env' }); // Sửa path .env về 1 cấp
+require('dotenv').config({ path: '../.env', quiet: true });
 
-// ======================= SỬA LỖI PATH Ở ĐÂY =======================
+// ======================= Sá»¬A Lá»–I PATH á» ÄĂ‚Y =======================
 const { logger } = require('./shared/logger');
 const { asyncHandler, notFound, errorHandler, AppError } = require('./shared/middleware/errorHandler');
+const { responseHandler } = require('./shared/middleware/responseHandler');
 // ==================================================================
 
-// === THÊM KẾT NỐI REDIS ===
+// === THĂM Káº¾T Ná»I REDIS ===
 const Redis = require('ioredis');
 const redis = new Redis({
-    host: 'redis_cache', // Tên service trong docker-compose
+    host: 'redis_cache', // TĂªn service trong docker-compose
     port: 6379,
 });
 redis.on('connect', () => {
-    logger.info('Auth-service đã kết nối với Redis Cache.');
+    logger.info('Auth service connected to Redis cache.');
 });
 redis.on('error', (err) => {
-    logger.error('Auth-service không thể kết nối Redis', err);
+    logger.error('Auth service failed to connect to Redis.', { message: err.message });
 });
-// === KẾT THÚC THÊM MỚI ===
+// === Káº¾T THĂC THĂM Má»I ===
 
-// ======================= SỬA LỖI PATH Ở ĐÂY =======================
+// ======================= Sá»¬A Lá»–I PATH á» ÄĂ‚Y =======================
 const {
     registerValidation,
     loginValidation,
     idParamValidation,
-    // === IMPORT VALIDATION MỚI ===
+    // === IMPORT VALIDATION Má»I ===
     adminCreateUserValidation,
     adminUpdateUserValidation
 } = require('./shared/middleware/validation');
@@ -48,10 +49,11 @@ const {
 
 const { authMiddleware, checkRole } = require('./middleware/authMiddleware');
 const app = express();
-app.use(cors());
+app.use(cors({ origin: process.env.CORS_ORIGIN || '*', credentials: true }));
 app.use(express.json());
+app.use(responseHandler);
 
-//  🔹  Health check route
+//  đŸ”¹  Health check route
 app.get('/health', (req, res) => {
     res.status(200).json({
         service: 'auth-service',
@@ -66,7 +68,6 @@ const dbConfig = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_AUTH_NAME,
     charset: 'utf8mb4',
-    // collation: 'utf8mb4_unicode_ci', // <- Bạn nên xóa dòng này để hết cảnh báo MySQL
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -74,7 +75,7 @@ const dbConfig = {
 const pool = mysql.createPool(dbConfig);
 
 // --- API Endpoints ---
-// 1. API: Đăng ký người dùng
+// 1. API: ÄÄƒng kĂ½ ngÆ°á»i dĂ¹ng
 app.post('/register', registerValidation, asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
     const salt = await bcrypt.genSalt(10);
@@ -87,17 +88,17 @@ app.post('/register', registerValidation, asyncHandler(async (req, res) => {
     res.status(201).json({ id: result.insertId, message: 'User registered successfully' });
 }));
 
-// 2. API: Đăng nhập
+// 2. API: ÄÄƒng nháº­p
 app.post('/login', loginValidation, asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     const [rows] = await pool.execute('SELECT * FROM users WHERE email = ?', [email]);
     if (rows.length === 0) {
-        throw new AppError('Email hoặc mật khẩu không đúng.', 401);
+        throw new AppError('Email hoáº·c máº­t kháº©u khĂ´ng Ä‘Ăºng.', 401);
     }
     const user = rows[0];
     const isMatch = await bcrypt.compare(password, user.password_hash);
     if (!isMatch) {
-        throw new AppError('Email hoặc mật khẩu không đúng.', 401);
+        throw new AppError('Email hoáº·c máº­t kháº©u khĂ´ng Ä‘Ăºng.', 401);
     }
     const payload = {
         id: user.id,
@@ -111,17 +112,17 @@ app.post('/login', loginValidation, asyncHandler(async (req, res) => {
     res.json({ message: 'Login successful', token, user });
 }));
 
-// 3. API MỚI: Xác thực token
+// 3. API Má»I: XĂ¡c thá»±c token
 app.get('/verify', authMiddleware, (req, res) => {
     res.json({ message: 'Token is valid', user: req.user });
 });
 
-// 4. API: Lấy danh sách chuyên viên theo vai trò
+// 4. API: Láº¥y danh sĂ¡ch chuyĂªn viĂªn theo vai trĂ²
 app.get('/users/specialists', authMiddleware, checkRole('coordinator'), asyncHandler(async (req, res) => {
     const { role } = req.query;
     const specialistRoles = ['transcriber', 'arranger', 'artist'];
     if (!role || !specialistRoles.includes(role)) {
-        throw new AppError('Vai trò chuyên viên không hợp lệ.', 400);
+        throw new AppError('Vai trĂ² chuyĂªn viĂªn khĂ´ng há»£p lá»‡.', 400);
     }
     const [specialists] = await pool.execute(
         'SELECT id, name FROM users WHERE role = ?',
@@ -130,86 +131,86 @@ app.get('/users/specialists', authMiddleware, checkRole('coordinator'), asyncHan
     res.json(specialists);
 }));
 
-// 5. API: Cập nhật tên người dùng
+// 5. API: Cáº­p nháº­t tĂªn ngÆ°á»i dĂ¹ng
 app.put('/users/:id', authMiddleware, idParamValidation, asyncHandler(async (req, res) => {
     const targetUserId = parseInt(req.params.id, 10);
     const { name } = req.body;
     if (req.user.id !== targetUserId) {
-        throw new AppError('Bạn không có quyền thực hiện hành động này.', 403);
+        throw new AppError('Báº¡n khĂ´ng cĂ³ quyá»n thá»±c hiá»‡n hĂ nh Ä‘á»™ng nĂ y.', 403);
     }
     if (!name) {
-        throw new AppError('Tên không được để trống.', 400);
+        throw new AppError('TĂªn khĂ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng.', 400);
     }
     const [result] = await pool.execute('UPDATE users SET name = ? WHERE id = ?', [name, targetUserId]);
-    // === THÊM LỆNH XÓA CACHE ===
+    // === THĂM Lá»†NH XĂ“A CACHE ===
     if (result.affectedRows > 0) {
         const customerCacheKey = `user:${targetUserId}:name`;
-        await redis.del(customerCacheKey); // Lệnh xóa key
-        logger.info(`[Cache] Đã xóa key ${customerCacheKey} do user cập nhật tên.`);
+        await redis.del(customerCacheKey); // Lá»‡nh xĂ³a key
+        logger.info(`[Cache] Deleted key ${customerCacheKey} after user profile update.`);
     }
-    // === KẾT THÚC THÊM MỚI ===
+    // === Káº¾T THĂC THĂM Má»I ===
     if (result.affectedRows === 0) {
-        throw new AppError('Không tìm thấy người dùng.', 404);
+        throw new AppError('KhĂ´ng tĂ¬m tháº¥y ngÆ°á»i dĂ¹ng.', 404);
     }
     logger.info(`User profile updated: ${req.user.email}`);
-    res.json({ message: 'Cập nhật hồ sơ thành công.' });
+    res.json({ message: 'Cáº­p nháº­t há»“ sÆ¡ thĂ nh cĂ´ng.' });
 }));
 
-// 6. API: Đổi mật khẩu
+// 6. API: Äá»•i máº­t kháº©u
 app.put('/users/:id/password', authMiddleware, idParamValidation, asyncHandler(async (req, res) => {
     const targetUserId = parseInt(req.params.id, 10);
     const { oldPassword, newPassword } = req.body;
     if (req.user.id !== targetUserId) {
-        throw new AppError('Bạn không có quyền thực hiện hành động này.', 403);
+        throw new AppError('Báº¡n khĂ´ng cĂ³ quyá»n thá»±c hiá»‡n hĂ nh Ä‘á»™ng nĂ y.', 403);
     }
     if (!oldPassword || !newPassword || newPassword.length < 6) {
-        throw new AppError('Vui lòng cung cấp mật khẩu cũ và mật khẩu mới (ít nhất 6 ký tự).', 400);
+        throw new AppError('Vui lĂ²ng cung cáº¥p máº­t kháº©u cÅ© vĂ  máº­t kháº©u má»›i (Ă­t nháº¥t 6 kĂ½ tá»±).', 400);
     }
     const [rows] = await pool.execute('SELECT password_hash FROM users WHERE id = ?', [targetUserId]);
     if (rows.length === 0) {
-        throw new AppError('Không tìm thấy người dùng.', 404);
+        throw new AppError('KhĂ´ng tĂ¬m tháº¥y ngÆ°á»i dĂ¹ng.', 404);
     }
     const user = rows[0];
     const isMatch = await bcrypt.compare(oldPassword, user.password_hash);
     if (!isMatch) {
-        throw new AppError('Mật khẩu cũ không đúng.', 401);
+        throw new AppError('Máº­t kháº©u cÅ© khĂ´ng Ä‘Ăºng.', 401);
     }
     const salt = await bcrypt.genSalt(10);
     const hashedNewPassword = await bcrypt.hash(newPassword, salt);
     await pool.execute('UPDATE users SET password_hash = ? WHERE id = ?', [hashedNewPassword, targetUserId]);
     logger.info(`User password changed: ${req.user.email}`);
-    res.json({ message: 'Đổi mật khẩu thành công.' });
+    res.json({ message: 'Äá»•i máº­t kháº©u thĂ nh cĂ´ng.' });
 }));
 
-// 7. API: Lấy thông tin cơ bản của một user (dùng nội bộ giữa các service)
+// 7. API: Láº¥y thĂ´ng tin cÆ¡ báº£n cá»§a má»™t user (dĂ¹ng ná»™i bá»™ giá»¯a cĂ¡c service)
 app.get('/users/:id', idParamValidation, asyncHandler(async (req, res) => {
     const [rows] = await pool.execute('SELECT id, name, email, role FROM users WHERE id = ?', [req.params.id]);
     if (rows.length === 0) {
-        throw new AppError('Không tìm thấy người dùng.', 404);
+        throw new AppError('KhĂ´ng tĂ¬m tháº¥y ngÆ°á»i dĂ¹ng.', 404);
     }
     res.json(rows[0]);
 }));
 
-// 8. API MỚI: Lấy IDs theo vai trò (dùng nội bộ)
+// 8. API Má»I: Láº¥y IDs theo vai trĂ² (dĂ¹ng ná»™i bá»™)
 app.get('/users/by-role/:role', asyncHandler(async (req, res) => {
     const { role } = req.params;
-    // Lấy chỉ ID
+    // Láº¥y chá»‰ ID
     const [users] = await pool.execute('SELECT id FROM users WHERE role = ?', [role]);
-    res.json(users); // Sẽ trả về [ {id: 2}, {id: 4}, ... ]
+    res.json(users); // Sáº½ tráº£ vá» [ {id: 2}, {id: 4}, ... ]
 }));
 
-// === START: API MỚI CHO ADMIN CRUD USERS ===
-// 9. API (Admin): Lấy tất cả người dùng
+// === START: API Má»I CHO ADMIN CRUD USERS ===
+// 9. API (Admin): Láº¥y táº¥t cáº£ ngÆ°á»i dĂ¹ng
 app.get('/admin/users', authMiddleware, checkRole('admin'), asyncHandler(async (req, res) => {
-    // Lấy tất cả user, loại bỏ password_hash
+    // Láº¥y táº¥t cáº£ user, loáº¡i bá» password_hash
     const [users] = await pool.execute('SELECT id, name, email, role, created_at FROM users ORDER BY created_at DESC');
     res.json(users);
 }));
 
-// 10. API (Admin): Tạo người dùng mới
+// 10. API (Admin): Táº¡o ngÆ°á»i dĂ¹ng má»›i
 app.post('/admin/users', authMiddleware, checkRole('admin'), adminCreateUserValidation, asyncHandler(async (req, res) => {
     const { name, email, password, role } = req.body;
-    // Mã hóa mật khẩu
+    // MĂ£ hĂ³a máº­t kháº©u
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const [result] = await pool.execute(
@@ -217,55 +218,56 @@ app.post('/admin/users', authMiddleware, checkRole('admin'), adminCreateUserVali
         [name, email, hashedPassword, role]
     );
     logger.info(`Admin created new user: ${email} (Role: ${role})`);
-    res.status(201).json({ id: result.insertId, message: 'Tạo người dùng thành công' });
+    res.status(201).json({ id: result.insertId, message: 'Táº¡o ngÆ°á»i dĂ¹ng thĂ nh cĂ´ng' });
 }));
 
-// 11. API (Admin): Cập nhật người dùng
+// 11. API (Admin): Cáº­p nháº­t ngÆ°á»i dĂ¹ng
 app.put('/admin/users/:id', authMiddleware, checkRole('admin'), idParamValidation, adminUpdateUserValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { name, email, role } = req.body;
-    // Admin không được phép sửa tài khoản của chính mình qua API này để tránh tự khóa
+    // Admin khĂ´ng Ä‘Æ°á»£c phĂ©p sá»­a tĂ i khoáº£n cá»§a chĂ­nh mĂ¬nh qua API nĂ y Ä‘á»ƒ trĂ¡nh tá»± khĂ³a
     if (parseInt(id, 10) === req.user.id) {
-        throw new AppError('Không thể tự sửa vai trò của chính mình. Vui lòng sửa trong CSDL.', 400);
+        throw new AppError('KhĂ´ng thá»ƒ tá»± sá»­a vai trĂ² cá»§a chĂ­nh mĂ¬nh. Vui lĂ²ng sá»­a trong CSDL.', 400);
     }
     const [result] = await pool.execute(
         'UPDATE users SET name = ?, email = ?, role = ? WHERE id = ?',
         [name, email, role, id]
     );
-    // === THÊM LỆNH XÓA CACHE ===
+    // === THĂM Lá»†NH XĂ“A CACHE ===
     if (result.affectedRows > 0) {
         const customerCacheKey = `user:${id}:name`;
-        await redis.del(customerCacheKey); // Lệnh xóa key
-        logger.info(`[Cache] Admin đã xóa key ${customerCacheKey} do user cập nhật.`);
+        await redis.del(customerCacheKey); // Lá»‡nh xĂ³a key
+        logger.info(`[Cache] Deleted key ${customerCacheKey} after admin user update.`);
     }
-    // === KẾT THÚC THÊM MỚI ===
+    // === Káº¾T THĂC THĂM Má»I ===
     if (result.affectedRows === 0) {
-        throw new AppError('Không tìm thấy người dùng.', 404);
+        throw new AppError('KhĂ´ng tĂ¬m tháº¥y ngÆ°á»i dĂ¹ng.', 404);
     }
     logger.info(`Admin updated user ID: ${id}`);
-    res.json({ message: 'Cập nhật người dùng thành công' });
+    res.json({ message: 'Cáº­p nháº­t ngÆ°á»i dĂ¹ng thĂ nh cĂ´ng' });
 }));
 
-// 12. API (Admin): Xóa người dùng
+// 12. API (Admin): XĂ³a ngÆ°á»i dĂ¹ng
 app.delete('/admin/users/:id', authMiddleware, checkRole('admin'), idParamValidation, asyncHandler(async (req, res) => {
     const { id } = req.params;
-    // Ngăn admin tự xóa mình
+    // NgÄƒn admin tá»± xĂ³a mĂ¬nh
     if (parseInt(id, 10) === req.user.id) {
-        throw new AppError('Bạn không thể tự xóa chính mình.', 400);
+        throw new AppError('Báº¡n khĂ´ng thá»ƒ tá»± xĂ³a chĂ­nh mĂ¬nh.', 400);
     }
     const [result] = await pool.execute('DELETE FROM users WHERE id = ?', [id]);
     if (result.affectedRows === 0) {
-        throw new AppError('Không tìm thấy người dùng.', 404);
+        throw new AppError('KhĂ´ng tĂ¬m tháº¥y ngÆ°á»i dĂ¹ng.', 404);
     }
     logger.info(`Admin deleted user ID: ${id}`);
-    res.json({ message: 'Xóa người dùng thành công' });
+    res.json({ message: 'XĂ³a ngÆ°á»i dĂ¹ng thĂ nh cĂ´ng' });
 }));
-// === END: API MỚI CHO ADMIN CRUD USERS ===
+// === END: API Má»I CHO ADMIN CRUD USERS ===
 
-// --- Middleware xử lý cuối cùng ---
+// --- Middleware xá»­ lĂ½ cuá»‘i cĂ¹ng ---
 app.use(notFound);
 app.use(errorHandler);
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     logger.info(`Auth Service is running on port ${PORT}`);
 });
+

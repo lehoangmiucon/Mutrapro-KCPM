@@ -1,15 +1,17 @@
-const express = require('express');
+﻿const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
-require('dotenv').config({ path: '../.env' });
+require('dotenv').config({ path: '../.env', quiet: true });
 
 const { logger } = require('./shared/logger');
 const { notFound, errorHandler } = require('./shared/middleware/errorHandler');
+const { responseHandler } = require('./shared/middleware/responseHandler');
 const { createFileController } = require('./controllers/fileController');
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: process.env.CORS_ORIGIN || '*', credentials: true }));
 app.use(express.json());
+app.use(responseHandler);
 
 app.get('/health', (req, res) => {
     res.status(200).json({
@@ -39,3 +41,4 @@ const PORT = process.env.PORT || 3004;
 app.listen(PORT, () => {
     logger.info(`File Service is running on port ${PORT}`);
 });
+

@@ -1,11 +1,12 @@
-// services/notification-service/index.js
+﻿// services/notification-service/index.js
 const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 const http = require('http');
 const { Server } = require("socket.io");
 const { logger } = require('./shared/logger');
-require('dotenv').config({ path: '../.env' });
+const { authMiddleware, assertOwnerOrRole } = require('./shared/middleware/auth');
+require('dotenv').config({ path: '../.env', quiet: true });
 
 // ========== FIREBASE ADMIN SDK ==========
 const admin = require("firebase-admin");
@@ -15,17 +16,15 @@ try {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
   });
-  logger.info("✅ Firebase Admin SDK initialized successfully.");
+  logger.info("Firebase Admin SDK initialized successfully.");
 } catch (error) {
-  logger.error("❌ Lỗi khi khởi tạo Firebase Admin SDK!");
-  logger.error("Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/");
-  logger.error(error.message);
+  logger.warn("Firebase Admin SDK was not initialized. Push notifications will be disabled.", { message: error.message });
 }
 
 // ========== EXPRESS + SOCKET.IO SETUP ==========
 const app = express();
 const corsOptions = {
-  origin: "http://localhost:3000", // React frontend
+  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
   methods: ["GET", "POST"]
 };
 app.use(cors(corsOptions));
@@ -47,14 +46,14 @@ let onlineUsers = {};
 
 const addUser = (userId, socketId) => {
   onlineUsers[userId] = socketId;
-  logger.info(`🔌 User ${userId} connected (socket: ${socketId}). Total online: ${Object.keys(onlineUsers).length}`);
+  logger.info(`User ${userId} connected. Socket=${socketId}. Online users=${Object.keys(onlineUsers).length}`);
 };
 
 const removeUser = (socketId) => {
   for (const [userId, sId] of Object.entries(onlineUsers)) {
     if (sId === socketId) {
       delete onlineUsers[userId];
-      logger.info(`❎ User ${userId} disconnected (socket: ${socketId}).`);
+      logger.info(`User ${userId} disconnected. Socket=${socketId}.`);
       break;
     }
   }
@@ -73,7 +72,6 @@ const dbConfig = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NOTIFICATION_NAME,
   charset: 'utf8mb4',
-  collation: 'utf8mb4_unicode_ci',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
@@ -83,24 +81,24 @@ const pool = mysql.createPool(dbConfig);
 // ========== FCM PUSH NOTIFICATION ==========
 const sendPushNotification = async (userId, eventName, data) => {
   try {
-    // 1️⃣ Lấy FCM tokens từ DB
+    // 1ï¸âƒ£ Láº¥y FCM tokens tá»« DB
     const [rows] = await pool.execute(
       "SELECT fcm_token FROM user_devices WHERE user_id = ?",
       [userId]
     );
 
     if (rows.length === 0) {
-      logger.warn(`[FCM] User ${userId} không có FCM token.`);
+      logger.warn(`[FCM] User ${userId} has no FCM token.`);
       return;
     }
 
     const tokens = rows.map(r => r.fcm_token);
 
-    // 2️⃣ Chuẩn bị nội dung thông báo
+    // 2ï¸âƒ£ Chuáº©n bá»‹ ná»™i dung thĂ´ng bĂ¡o
     const message = {
       notification: {
-        title: "Thông báo mới từ MuTraPro",
-        body: data?.message || `Bạn có cập nhật từ sự kiện: ${eventName}`
+        title: "ThĂ´ng bĂ¡o má»›i tá»« MuTraPro",
+        body: data?.message || `Báº¡n cĂ³ cáº­p nháº­t tá»« sá»± kiá»‡n: ${eventName}`
       },
       webpush: {
         fcmOptions: { link: 'http://localhost:3000/dashboard' }
@@ -108,18 +106,18 @@ const sendPushNotification = async (userId, eventName, data) => {
       tokens
     };
 
-    // 3️⃣ Gửi thông báo (cú pháp chuẩn)
+    // 3ï¸âƒ£ Gá»­i thĂ´ng bĂ¡o (cĂº phĂ¡p chuáº©n)
     const response = await admin.messaging().sendEachForMulticast(message);
 
-    logger.info(`[FCM] ✅ Gửi thành công ${response.successCount}, thất bại ${response.failureCount} (User ${userId})`);
+    logger.info(`[FCM] Push sent. Success=${response.successCount}, failed=${response.failureCount}, user=${userId}`);
   } catch (error) {
-    logger.error(`[FCM] ❌ Lỗi khi gửi notification cho User ${userId}: ${error.message}`);
+    logger.error(`[FCM] Failed to send notification to user ${userId}.`, { message: error.message });
   }
 };
 
 // ========== API ENDPOINTS ==========
 
-// 📨 Lưu notification vào DB (nội bộ)
+// đŸ“¨ LÆ°u notification vĂ o DB (ná»™i bá»™)
 app.post('/send', async (req, res) => {
   try {
     const { user_id, title, message, channel } = req.body;
@@ -128,7 +126,7 @@ app.post('/send', async (req, res) => {
        VALUES (?, ?, ?, ?, 'pending')`,
       [user_id, title, message, channel || 'push']
     );
-    logger.info(`📬 Notification for user #${user_id} saved.`);
+    logger.info(`Notification for user ${user_id} saved.`);
     res.status(201).json({ id: result.insertId, message: 'Notification saved successfully' });
   } catch (err) {
     logger.error(err);
@@ -136,12 +134,58 @@ app.post('/send', async (req, res) => {
   }
 });
 
-// 📱 Đăng ký thiết bị (FCM)
+app.get('/', authMiddleware, async (req, res) => {
+  try {
+    const page = Math.max(parseInt(req.query.page || '1', 10), 1);
+    const limit = Math.min(Math.max(parseInt(req.query.limit || '20', 10), 1), 100);
+    const offset = (page - 1) * limit;
+    const [countRows] = await pool.execute('SELECT COUNT(*) as total FROM notifications WHERE user_id = ?', [req.user.id]);
+    const [items] = await pool.execute(
+      'SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC LIMIT ? OFFSET ?',
+      [req.user.id, limit, offset]
+    );
+
+    res.json({
+      success: true,
+      message: 'Notifications loaded.',
+      data: {
+        items,
+        pagination: {
+          page,
+          limit,
+          total: countRows[0].total,
+          totalPages: Math.ceil(countRows[0].total / limit)
+        }
+      }
+    });
+  } catch (err) {
+    logger.error(err.message);
+    res.status(500).json({ success: false, message: 'Internal server error', errors: [] });
+  }
+});
+
+app.patch('/:id/read', authMiddleware, async (req, res) => {
+  try {
+    const [rows] = await pool.execute('SELECT * FROM notifications WHERE id = ?', [req.params.id]);
+    if (rows.length === 0) {
+      return res.status(404).json({ success: false, message: 'Notification not found.', errors: [] });
+    }
+
+    assertOwnerOrRole(req, rows[0].user_id, ['admin']);
+    await pool.execute("UPDATE notifications SET status = 'sent', sent_at = COALESCE(sent_at, NOW()) WHERE id = ?", [req.params.id]);
+    res.json({ success: true, message: 'Notification marked as read.', data: { id: req.params.id } });
+  } catch (err) {
+    const statusCode = err.statusCode || 500;
+    res.status(statusCode).json({ success: false, message: err.message || 'Internal server error', errors: [] });
+  }
+});
+
+// đŸ“± ÄÄƒng kĂ½ thiáº¿t bá»‹ (FCM)
 app.post('/register-device', async (req, res) => {
   try {
     const { userId, fcmToken } = req.body;
     if (!userId || !fcmToken) {
-      return res.status(400).json({ error: 'Thiếu thông tin userId hoặc fcmToken' });
+      return res.status(400).json({ error: 'Thiáº¿u thĂ´ng tin userId hoáº·c fcmToken' });
     }
 
     await pool.execute(
@@ -149,39 +193,41 @@ app.post('/register-device', async (req, res) => {
       [userId, fcmToken]
     );
 
-    logger.info(`🔑 FCM token registered for user ${userId}`);
-    res.status(200).json({ message: 'Thiết bị đã được đăng ký thành công' });
+    logger.info(`FCM token registered for user ${userId}.`);
+    res.status(200).json({ message: 'Thiáº¿t bá»‹ Ä‘Ă£ Ä‘Æ°á»£c Ä‘Äƒng kĂ½ thĂ nh cĂ´ng' });
   } catch (err) {
     logger.error(err);
-    res.status(500).json({ error: 'Lỗi đăng ký thiết bị' });
+    res.status(500).json({ error: 'Lá»—i Ä‘Äƒng kĂ½ thiáº¿t bá»‹' });
   }
 });
 
-// 📡 Gửi notification real-time
+// đŸ“¡ Gá»­i notification real-time
 app.post('/notify', async (req, res) => {
   const { userId, eventName, data } = req.body;
-  logger.info(`📢 /notify: userId=${userId}, event=${eventName}`);
+  logger.info(`/notify called. userId=${userId}, event=${eventName}`);
 
   if (userId === 'broadcast') {
     io.emit(eventName, data);
-    logger.info(`Broadcast event '${eventName}' tới tất cả client.`);
-    return res.status(200).json({ message: 'Đã broadcast.' });
+    logger.info(`Broadcast event '${eventName}' to all clients.`);
+    return res.status(200).json({ message: 'ÄĂ£ broadcast.' });
   }
 
   const receiverSocketId = onlineUsers[userId];
   if (receiverSocketId) {
     io.to(receiverSocketId).emit(eventName, data);
-    logger.info(`📨 Gửi realtime event '${eventName}' tới user ${userId} (${receiverSocketId})`);
-    return res.status(200).json({ message: 'Đã gửi realtime notification.' });
+    logger.info(`Realtime event '${eventName}' sent to user ${userId} (${receiverSocketId}).`);
+    return res.status(200).json({ message: 'ÄĂ£ gá»­i realtime notification.' });
   } else {
-    logger.warn(`⚠️ User ${userId} offline → gửi FCM notification...`);
-    sendPushNotification(userId, eventName, data); // chạy ngầm
-    return res.status(200).json({ message: 'User offline, đã gửi push notification.' });
+    logger.warn(`User ${userId} is offline. Attempting FCM notification.`);
+    sendPushNotification(userId, eventName, data); // cháº¡y ngáº§m
+    return res.status(200).json({ message: 'User offline, Ä‘Ă£ gá»­i push notification.' });
   }
 });
 
 // ========== START SERVER ==========
 const PORT = process.env.PORT || 3006;
 server.listen(PORT, () => {
-  logger.info(`🚀 Notification Service (HTTP + WS) đang chạy tại cổng ${PORT}`);
+  logger.info(`Notification Service (HTTP + WS) is running on port ${PORT}`);
 });
+
+

@@ -26,6 +26,13 @@ const getApiErrorMessage = (error, fallback = 'Thao tac that bai. Vui long thu l
     return error?.response?.data?.error || error?.response?.data?.message || error?.message || fallback;
 };
 
+const unwrapData = (response) => {
+    if (response.data && Object.prototype.hasOwnProperty.call(response.data, 'success')) {
+        return response.data.data;
+    }
+    return response.data;
+};
+
 const getExtension = (fileName = '') => {
     const index = fileName.lastIndexOf('.');
     return index >= 0 ? fileName.slice(index).toLowerCase() : '';
@@ -68,7 +75,7 @@ const uploadFile = async (file, orderId, fileType, options = {}) => {
         const response = await apiClient.post('/upload', formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
-        return response.data;
+        return unwrapData(response);
     } catch (error) {
         throw new Error(getApiErrorMessage(error, 'Tai file that bai.'));
     }
@@ -77,7 +84,7 @@ const uploadFile = async (file, orderId, fileType, options = {}) => {
 const getFilesByOrder = async (orderId) => {
     try {
         const response = await apiClient.get(`/files/order/${orderId}`);
-        return response.data;
+        return unwrapData(response);
     } catch (error) {
         throw new Error(getApiErrorMessage(error, 'Khong the tai danh sach file.'));
     }

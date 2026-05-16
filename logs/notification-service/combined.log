@@ -1,9 +1,0 @@
-{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
-{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
-{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
-{"level":"info","message":"🚀 Notification Service (HTTP + WS) đang chạy tại cổng 3006","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
-{"level":"info","message":"New client connected: hOq7Mkd2UGCYLhABAAAB","service":"notification-service","timestamp":"2026-05-15 13:49:50"}
-{"level":"info","message":"🔌 User 1 connected (socket: hOq7Mkd2UGCYLhABAAAB). Total online: 1","service":"notification-service","timestamp":"2026-05-15 13:49:50"}
-{"level":"info","message":"❎ User 1 disconnected (socket: hOq7Mkd2UGCYLhABAAAB).","service":"notification-service","timestamp":"2026-05-15 13:50:43"}
-{"level":"info","message":"New client connected: 2mhKUYvOhGgynspdAAAD","service":"notification-service","timestamp":"2026-05-15 13:50:56"}
-{"level":"info","message":"🔌 User 8 connected (socket: 2mhKUYvOhGgynspdAAAD). Total online: 1","service":"notification-service","timestamp":"2026-05-15 13:50:56"}

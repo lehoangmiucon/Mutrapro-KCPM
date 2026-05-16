@@ -25,14 +25,26 @@ const assertKnownFileType = (fileType) => {
     }
 };
 
-const getOrder = async (orderId) => {
-    const response = await axios.get(`http://order-service:3002/${orderId}`);
+const authHeaders = (token) => {
+    if (token) return { Authorization: `Bearer ${token}` };
+    if (process.env.INTERNAL_SERVICE_TOKEN) {
+        return { 'X-Internal-Service-Token': process.env.INTERNAL_SERVICE_TOKEN };
+    }
+    return {};
+};
+
+const getOrder = async (orderId, token) => {
+    const response = await axios.get(`http://order-service:3002/${orderId}`, {
+        headers: authHeaders(token)
+    });
     return response.data;
 };
 
-const getLatestTask = async (orderId) => {
+const getLatestTask = async (orderId, token) => {
     try {
-        const response = await axios.get(`http://task-service:3003/order/${orderId}`);
+        const response = await axios.get(`http://task-service:3003/order/${orderId}`, {
+            headers: authHeaders(token)
+        });
         return response.data;
     } catch (error) {
         if (error.response?.status === 404) return null;
@@ -40,23 +52,23 @@ const getLatestTask = async (orderId) => {
     }
 };
 
-const canAccessOrder = async (user, orderId) => {
+const canAccessOrder = async (user, token, orderId) => {
     if (['admin', 'coordinator'].includes(user.role)) return true;
 
     if (user.role === 'customer') {
-        const order = await getOrder(orderId);
+        const order = await getOrder(orderId, token);
         return Number(order.customer_id) === Number(user.id);
     }
 
     if (SPECIALIST_ROLES.includes(user.role)) {
-        const task = await getLatestTask(orderId);
+        const task = await getLatestTask(orderId, token);
         return task && Number(task.assigned_to) === Number(user.id);
     }
 
     return false;
 };
 
-const assertCanUpload = async ({ user, orderId, fileType }) => {
+const assertCanUpload = async ({ user, token, orderId, fileType }) => {
     assertKnownFileType(fileType);
 
     const allowedTypes = ROLE_FILE_TYPES[user.role] || [];
@@ -64,14 +76,14 @@ const assertCanUpload = async ({ user, orderId, fileType }) => {
         throw new AppError('You are not allowed to upload this file type.', 403);
     }
 
-    const hasAccess = await canAccessOrder(user, orderId);
+    const hasAccess = await canAccessOrder(user, token, orderId);
     if (!hasAccess) {
         throw new AppError('You are not allowed to upload files for this order.', 403);
     }
 };
 
-const assertCanReadOrderFiles = async ({ user, orderId }) => {
-    const hasAccess = await canAccessOrder(user, orderId);
+const assertCanReadOrderFiles = async ({ user, token, orderId }) => {
+    const hasAccess = await canAccessOrder(user, token, orderId);
     if (!hasAccess) {
         throw new AppError('You are not allowed to access files for this order.', 403);
     }

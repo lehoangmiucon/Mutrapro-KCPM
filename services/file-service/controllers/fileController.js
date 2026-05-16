@@ -16,11 +16,12 @@ const createFileController = ({ pool, logger }) => {
         asyncHandler(async (req, res) => {
             const result = await fileService.uploadFile({
                 user: req.user,
+                token: req.token,
                 body: req.body,
                 uploadedFile: req.file
             });
 
-            res.status(201).json(result);
+            res.success({ statusCode: 201, message: result.message, data: { id: result.id } });
         })
     );
 
@@ -30,10 +31,11 @@ const createFileController = ({ pool, logger }) => {
         asyncHandler(async (req, res) => {
             const files = await fileService.getFilesByOrder({
                 user: req.user,
+                token: req.token,
                 orderId: req.params.orderId
             });
 
-            res.json(files);
+            res.success({ message: 'Files loaded successfully.', data: files });
         })
     );
 
@@ -43,6 +45,7 @@ const createFileController = ({ pool, logger }) => {
         asyncHandler(async (req, res, next) => {
             const downloadInfo = await fileService.getDownloadInfo({
                 user: req.user,
+                token: req.token,
                 fileId: req.params.fileId
             });
 

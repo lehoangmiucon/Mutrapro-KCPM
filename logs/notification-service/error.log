@@ -1,3 +1,0 @@
-{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
-{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
-{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
