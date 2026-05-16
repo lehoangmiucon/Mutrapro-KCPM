@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const API_URL = 'http://localhost:3007/api/files';
 const MAX_FILE_SIZE_BYTES = 50 * 1024 * 1024;
 
