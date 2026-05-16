@@ -1,0 +1,23 @@
+{
+  "name": "api-gateway",
+  "version": "1.0.0",
+  "description": "API Gateway for MuTraPro microservices",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/main.js",
+    "dev": "nest start --watch",
+    "build": "nest build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-http-proxy": "^1.6.3",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

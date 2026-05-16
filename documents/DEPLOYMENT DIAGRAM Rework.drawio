@@ -1,0 +1,124 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="28.2.9">
+  <diagram name="Trang-1" id="wf2FBAOzjjKNBEEemp84">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="OQ0oqNR-T30Y4OQPwwWD-6" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="345" y="250" as="sourcePoint" />
+            <mxPoint x="344.5" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OQ0oqNR-T30Y4OQPwwWD-7" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="250" width="510" height="580" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-2" value="(HTTP/HTTPS)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="220" width="60" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-5" value="Container &#39;web-app&#39; (Nginx)&lt;div&gt;- Phục vụ React app (HTML, CSS, JS)&amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="300" width="230" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-7" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="345" y="390" as="sourcePoint" />
+            <mxPoint x="344.54999999999995" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-8" value="(Gọi API qua port 3007)  " style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="348" y="370" width="130" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-10" value="Docker Host (Máy chủ)&lt;div&gt;Chạy môi trường Docker)&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="255" y="260" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-11" value="&lt;div&gt;Container &#39;api-gateway&#39; (Node.js/Express)&amp;nbsp;&lt;/div&gt;&lt;div&gt;- Điều hướng /api/auth, /api/orders, ... &amp;nbsp;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="390" width="250" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-12" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="480" width="410" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-13" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="345.23" y="480" as="sourcePoint" />
+            <mxPoint x="344.78" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-15" value="(Giao tiếp nội bộ Docker qua tên service)  " style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="349" y="460" width="221" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-17" value="Container &#39;auth-service&#39;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="490" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-18" value="Container &#39;order-service&#39;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="490" width="132.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-19" value="Container &#39;task-service&#39;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="545" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-20" value="Container &#39;file-service&#39;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="545" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-21" value="Container &#39;notification-service&#39;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="600" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-22" value="Container &#39;studio-service&#39;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="600" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-24" value="" style="endArrow=none;html=1;rounded=0;fontStyle=1" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="345.15000000000003" y="700" as="sourcePoint" />
+            <mxPoint x="344.7" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-25" value="(Các service trên cùng kết nối tới 3 service nền tảng dưới đây)  " style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="245" y="700" width="215" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-28" value="" style="line;strokeWidth=1;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="730" width="320" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-31" value="" style="endArrow=none;html=1;rounded=0;fontStyle=1" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="190.5" y="770" as="sourcePoint" />
+            <mxPoint x="190" y="740" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-32" value="Container &#39;mysql_db&#39;&lt;div&gt;(Database)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="770" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-33" value="" style="endArrow=none;html=1;rounded=0;fontStyle=1" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="345.25" y="770" as="sourcePoint" />
+            <mxPoint x="344.75" y="740" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-34" value="&lt;div&gt;Container &#39;redis_cache&#39;&lt;/div&gt;&lt;div&gt;(Cache)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="275" y="770" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-35" value="" style="endArrow=none;html=1;rounded=0;fontStyle=1" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510.5" y="770" as="sourcePoint" />
+            <mxPoint x="510" y="740" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-36" value="&lt;div&gt;Container &#39;redis_cache&#39;&lt;/div&gt;&lt;div&gt;(Message Queue)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="770" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-37" value="" style="endArrow=none;html=1;rounded=0;fontStyle=1" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="348.5" y="860" as="sourcePoint" />
+            <mxPoint x="348" y="830" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-38" value="Trình duyệt của User (Client)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="275" y="170" width="135" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-5cMLCmk7BABoBR3AaVX-39" value="Dịch vụ bên ngoài: Firebase Cloud Messaging (FCM)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="207.5" y="860" width="312.5" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="doOcG3rUfHUhVvzWZ3LK-1" value="(Kết nối từ &#39;notification-service&#39;)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="360" y="830" width="171.25" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,50 @@
+/* web-app/src/pages/AdminDashboardPage.css */
+.admin-dashboard-page {
+    align-items: flex-start !important;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.admin-dashboard-page h1 {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+.stats-cards-container {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-card h2 {
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.stat-card p {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.chart-container {
+    width: 100%;
+}
+
+.chart-wrapper {
+    max-width: 500px;
+    margin: 2rem auto 0;
+}

@@ -1,0 +1,98 @@
+{"level":"info","message":"Order Service is running on port 3002","service":"order-service","timestamp":"2026-05-15 13:48:34"}
+{"level":"info","message":"Order-service đã kết nối với Redis Cache.","service":"order-service","timestamp":"2026-05-15 13:48:34"}
+{"address":"172.18.0.4","code":"ECONNREFUSED","errno":-111,"level":"error","message":"Không thể kết nối Redis connect ECONNREFUSED 172.18.0.4:6379","port":6379,"service":"order-service","stack":"Error: connect ECONNREFUSED 172.18.0.4:6379\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16)","syscall":"connect","timestamp":"2026-05-15 13:55:31"}
+{"address":"172.18.0.4","code":"ECONNREFUSED","errno":-111,"level":"error","message":"Không thể kết nối Redis connect ECONNREFUSED 172.18.0.4:6379","port":6379,"service":"order-service","stack":"Error: connect ECONNREFUSED 172.18.0.4:6379\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16)","syscall":"connect","timestamp":"2026-05-15 13:55:31"}
+{"level":"info","message":"Order Service is running on port 3002","service":"order-service","timestamp":"2026-05-16 04:29:52"}
+{"level":"info","message":"Order-service đã kết nối với Redis Cache.","service":"order-service","timestamp":"2026-05-16 04:29:52"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:30:44"}
+{"level":"info","message":"New order created with ID: 1","service":"order-service","timestamp":"2026-05-16 04:30:44"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:31:08"}
+{"level":"info","message":"New order created with ID: 2","service":"order-service","timestamp":"2026-05-16 04:31:08"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:31:21"}
+{"level":"info","message":"New order created with ID: 3","service":"order-service","timestamp":"2026-05-16 04:31:21"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:31:41"}
+{"level":"info","message":"New order created with ID: 4","service":"order-service","timestamp":"2026-05-16 04:31:41"}
+{"level":"info","message":"[Cache] MISS for user 7. Fetching...","service":"order-service","timestamp":"2026-05-16 04:31:46"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 04:31:57"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 04:32:01"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:32:18"}
+{"level":"info","message":"New order created with ID: 5","service":"order-service","timestamp":"2026-05-16 04:32:18"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:32:37"}
+{"level":"info","message":"New order created with ID: 6","service":"order-service","timestamp":"2026-05-16 04:32:37"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:32:38"}
+{"level":"info","message":"New order created with ID: 7","service":"order-service","timestamp":"2026-05-16 04:32:38"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:32:38"}
+{"level":"info","message":"New order created with ID: 8","service":"order-service","timestamp":"2026-05-16 04:32:38"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:32:53"}
+{"level":"info","message":"New order created with ID: 9","service":"order-service","timestamp":"2026-05-16 04:32:53"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:33:03"}
+{"level":"info","message":"New order created with ID: 10","service":"order-service","timestamp":"2026-05-16 04:33:03"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:33:05"}
+{"level":"info","message":"New order created with ID: 11","service":"order-service","timestamp":"2026-05-16 04:33:05"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:33:05"}
+{"level":"info","message":"New order created with ID: 12","service":"order-service","timestamp":"2026-05-16 04:33:05"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 04:33:06"}
+{"level":"info","message":"New order created with ID: 13","service":"order-service","timestamp":"2026-05-16 04:33:06"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 04:33:18"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 04:33:31"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 04:39:53"}
+{"level":"info","message":"Order Service is running on port 3002","service":"order-service","timestamp":"2026-05-16 04:58:40"}
+{"level":"info","message":"Order-service đã kết nối với Redis Cache.","service":"order-service","timestamp":"2026-05-16 04:58:40"}
+{"level":"info","message":"[Cache] MISS for user 7. Fetching...","service":"order-service","timestamp":"2026-05-16 05:01:33"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:01:46"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 05:02:00"}
+{"level":"info","message":"New order created with ID: 14","service":"order-service","timestamp":"2026-05-16 05:02:00"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:02:35"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 05:02:55"}
+{"level":"info","message":"New order created with ID: 15","service":"order-service","timestamp":"2026-05-16 05:02:55"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 05:06:03"}
+{"level":"info","message":"New order created with ID: 16","service":"order-service","timestamp":"2026-05-16 05:06:03"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:07:49"}
+{"ip":"::ffff:172.18.0.14","level":"error","message":"Không tìm thấy đơn hàng.","method":"GET","service":"order-service","stack":"Error: Không tìm thấy đơn hàng.\n    at /app/index.js:293:15\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2026-05-16 05:15:25","url":"/16"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 05:15:57"}
+{"level":"info","message":"New order created with ID: 1","service":"order-service","timestamp":"2026-05-16 05:15:57"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:15:57"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:15:57"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:16:02"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:16:11"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 05:16:27"}
+{"level":"info","message":"New order created with ID: 2","service":"order-service","timestamp":"2026-05-16 05:16:27"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:16:27"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:16:27"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:16:35"}
+{"ip":"::ffff:172.18.0.14","level":"error","message":"Không tìm thấy đơn hàng.","method":"GET","service":"order-service","stack":"Error: Không tìm thấy đơn hàng.\n    at /app/index.js:293:15\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2026-05-16 05:23:23","url":"/2"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 05:23:58"}
+{"level":"info","message":"New order created with ID: 1","service":"order-service","timestamp":"2026-05-16 05:23:58"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:23:58"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:23:58"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:30:17"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:30:19"}
+{"level":"info","message":"[Notify] Đã gửi thông báo 'new_order_pending' đến 1 coordinator.","service":"order-service","timestamp":"2026-05-16 05:30:43"}
+{"level":"info","message":"New order created with ID: 2","service":"order-service","timestamp":"2026-05-16 05:30:43"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:30:43"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:30:43"}
+{"level":"info","message":"Order Service is running on port 3002","service":"order-service","timestamp":"2026-05-16 05:31:13"}
+{"level":"info","message":"Order-service đã kết nối với Redis Cache.","service":"order-service","timestamp":"2026-05-16 05:31:14"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:31:24"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:31:25"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:31:31"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 05:34:10"}
+{"address":"172.18.0.3","code":"ECONNREFUSED","errno":-111,"level":"error","message":"Không thể kết nối Redis connect ECONNREFUSED 172.18.0.3:6379","port":6379,"service":"order-service","stack":"Error: connect ECONNREFUSED 172.18.0.3:6379\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16)","syscall":"connect","timestamp":"2026-05-16 06:12:31"}
+{"address":"172.18.0.3","code":"ECONNREFUSED","errno":-111,"level":"error","message":"Không thể kết nối Redis connect ECONNREFUSED 172.18.0.3:6379","port":6379,"service":"order-service","stack":"Error: connect ECONNREFUSED 172.18.0.3:6379\n    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16)","syscall":"connect","timestamp":"2026-05-16 06:12:31"}
+{"level":"info","message":"Order Service is running on port 3002","service":"order-service","timestamp":"2026-05-16 06:14:15"}
+{"level":"info","message":"Order-service đã kết nối với Redis Cache.","service":"order-service","timestamp":"2026-05-16 06:14:15"}
+{"level":"info","message":"[Cache] MISS for user 7. Fetching...","service":"order-service","timestamp":"2026-05-16 06:14:49"}
+{"level":"info","message":"[Cache] MISS for user 7. Fetching...","service":"order-service","timestamp":"2026-05-16 06:14:49"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 06:15:17"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 06:15:17"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 06:15:50"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 06:15:50"}
+{"level":"info","message":"Order #1 status updated to assigned","service":"order-service","timestamp":"2026-05-16 06:16:58"}
+{"level":"info","message":"[Cache] MISS for specialist 4. Fetching...","service":"order-service","timestamp":"2026-05-16 06:16:58"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 06:17:28"}
+{"level":"info","message":"Order #1 status updated to in_progress","service":"order-service","timestamp":"2026-05-16 06:17:30"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 06:17:30"}
+{"level":"info","message":"Order #1 status updated to completed","service":"order-service","timestamp":"2026-05-16 06:17:41"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 06:17:41"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 06:17:51"}
+{"level":"info","message":"[Cache] HIT for user 7","service":"order-service","timestamp":"2026-05-16 06:17:51"}

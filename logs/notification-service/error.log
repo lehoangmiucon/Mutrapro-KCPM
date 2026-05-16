@@ -1,0 +1,18 @@
+{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
+{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
+{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
+{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-16 04:29:52"}
+{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-16 04:29:52"}
+{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-16 04:29:52"}
+{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-16 04:58:40"}
+{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-16 04:58:40"}
+{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-16 04:58:40"}
+{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-16 05:31:13"}
+{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-16 05:31:13"}
+{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-16 05:31:13"}
+{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-16 06:14:14"}
+{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-16 06:14:14"}
+{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-16 06:14:14"}
+{"level":"error","message":"[FCM] ❌ Lỗi khi gửi notification cho User 7: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.","service":"notification-service","timestamp":"2026-05-16 06:16:58"}
+{"level":"error","message":"[FCM] ❌ Lỗi khi gửi notification cho User 7: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.","service":"notification-service","timestamp":"2026-05-16 06:17:30"}
+{"level":"error","message":"[FCM] ❌ Lỗi khi gửi notification cho User 7: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.","service":"notification-service","timestamp":"2026-05-16 06:17:41"}

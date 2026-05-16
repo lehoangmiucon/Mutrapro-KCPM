@@ -1,0 +1,166 @@
+{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
+{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
+{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
+{"level":"info","message":"🚀 Notification Service (HTTP + WS) đang chạy tại cổng 3006","service":"notification-service","timestamp":"2026-05-15 13:48:34"}
+{"level":"info","message":"New client connected: hOq7Mkd2UGCYLhABAAAB","service":"notification-service","timestamp":"2026-05-15 13:49:50"}
+{"level":"info","message":"🔌 User 1 connected (socket: hOq7Mkd2UGCYLhABAAAB). Total online: 1","service":"notification-service","timestamp":"2026-05-15 13:49:50"}
+{"level":"info","message":"❎ User 1 disconnected (socket: hOq7Mkd2UGCYLhABAAAB).","service":"notification-service","timestamp":"2026-05-15 13:50:43"}
+{"level":"info","message":"New client connected: 2mhKUYvOhGgynspdAAAD","service":"notification-service","timestamp":"2026-05-15 13:50:56"}
+{"level":"info","message":"🔌 User 8 connected (socket: 2mhKUYvOhGgynspdAAAD). Total online: 1","service":"notification-service","timestamp":"2026-05-15 13:50:56"}
+{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-16 04:29:52"}
+{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-16 04:29:52"}
+{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-16 04:29:52"}
+{"level":"info","message":"🚀 Notification Service (HTTP + WS) đang chạy tại cổng 3006","service":"notification-service","timestamp":"2026-05-16 04:29:52"}
+{"level":"info","message":"New client connected: ve5HPTdBz3_gv2jwAAAB","service":"notification-service","timestamp":"2026-05-16 04:30:04"}
+{"level":"info","message":"🔌 User 1 connected (socket: ve5HPTdBz3_gv2jwAAAB). Total online: 1","service":"notification-service","timestamp":"2026-05-16 04:30:04"}
+{"level":"info","message":"🔑 FCM token registered for user 1","service":"notification-service","timestamp":"2026-05-16 04:30:04"}
+{"level":"info","message":"❎ User 1 disconnected (socket: ve5HPTdBz3_gv2jwAAAB).","service":"notification-service","timestamp":"2026-05-16 04:30:10"}
+{"level":"info","message":"New client connected: LiKZqyZYz3hkSMoSAAAD","service":"notification-service","timestamp":"2026-05-16 04:30:31"}
+{"level":"info","message":"🔌 User 7 connected (socket: LiKZqyZYz3hkSMoSAAAD). Total online: 1","service":"notification-service","timestamp":"2026-05-16 04:30:31"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 04:30:31"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:30:44"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:30:44"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:30:44"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:31:08"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:31:08"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:31:08"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:31:21"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:31:21"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:31:21"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:31:41"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:31:41"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:31:41"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:32:18"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:32:18"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:32:18"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:32:37"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:32:37"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:32:37"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:32:38"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:32:38"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:32:38"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:32:38"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:32:38"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:32:38"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:32:53"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:32:53"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:32:53"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:33:03"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:33:03"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:33:03"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:33:05"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:33:05"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:33:05"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:33:05"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:33:05"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:33:05"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 04:33:06"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 04:33:06"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 04:33:06"}
+{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-16 04:58:40"}
+{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-16 04:58:40"}
+{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-16 04:58:40"}
+{"level":"info","message":"🚀 Notification Service (HTTP + WS) đang chạy tại cổng 3006","service":"notification-service","timestamp":"2026-05-16 04:58:40"}
+{"level":"info","message":"New client connected: A6x47PqJ1-P1wE2NAAAB","service":"notification-service","timestamp":"2026-05-16 04:58:45"}
+{"level":"info","message":"🔌 User 7 connected (socket: A6x47PqJ1-P1wE2NAAAB). Total online: 1","service":"notification-service","timestamp":"2026-05-16 04:58:45"}
+{"level":"info","message":"❎ User 7 disconnected (socket: A6x47PqJ1-P1wE2NAAAB).","service":"notification-service","timestamp":"2026-05-16 05:01:32"}
+{"level":"info","message":"New client connected: 8nswwaiEbrXyQnhJAAAD","service":"notification-service","timestamp":"2026-05-16 05:01:33"}
+{"level":"info","message":"🔌 User 7 connected (socket: 8nswwaiEbrXyQnhJAAAD). Total online: 1","service":"notification-service","timestamp":"2026-05-16 05:01:33"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 05:01:33"}
+{"level":"info","message":"❎ User 7 disconnected (socket: 8nswwaiEbrXyQnhJAAAD).","service":"notification-service","timestamp":"2026-05-16 05:01:38"}
+{"level":"info","message":"New client connected: q1bZdWlQaTdrH9DeAAAF","service":"notification-service","timestamp":"2026-05-16 05:01:39"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 05:01:39"}
+{"level":"info","message":"🔌 User 7 connected (socket: q1bZdWlQaTdrH9DeAAAF). Total online: 1","service":"notification-service","timestamp":"2026-05-16 05:01:39"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 05:02:00"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 05:02:00"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 05:02:00"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 05:02:55"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 05:02:55"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 05:02:55"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 05:06:03"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 05:06:03"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 05:06:03"}
+{"level":"info","message":"❎ User 7 disconnected (socket: q1bZdWlQaTdrH9DeAAAF).","service":"notification-service","timestamp":"2026-05-16 05:15:25"}
+{"level":"info","message":"New client connected: cPOBZyZk8iYPZ1tlAAAH","service":"notification-service","timestamp":"2026-05-16 05:15:25"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 05:15:25"}
+{"level":"info","message":"🔌 User 7 connected (socket: cPOBZyZk8iYPZ1tlAAAH). Total online: 1","service":"notification-service","timestamp":"2026-05-16 05:15:25"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 05:15:57"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 05:15:57"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 05:15:57"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 05:16:27"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 05:16:27"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 05:16:27"}
+{"level":"info","message":"❎ User 7 disconnected (socket: cPOBZyZk8iYPZ1tlAAAH).","service":"notification-service","timestamp":"2026-05-16 05:23:22"}
+{"level":"info","message":"New client connected: 4antGVm8kBCJ84QrAAAJ","service":"notification-service","timestamp":"2026-05-16 05:23:23"}
+{"level":"info","message":"🔌 User 7 connected (socket: 4antGVm8kBCJ84QrAAAJ). Total online: 1","service":"notification-service","timestamp":"2026-05-16 05:23:23"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 05:23:23"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 05:23:58"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 05:23:58"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 05:23:58"}
+{"level":"info","message":"❎ User 7 disconnected (socket: 4antGVm8kBCJ84QrAAAJ).","service":"notification-service","timestamp":"2026-05-16 05:30:16"}
+{"level":"info","message":"New client connected: 32y5I7rIyffMtDe-AAAL","service":"notification-service","timestamp":"2026-05-16 05:30:17"}
+{"level":"info","message":"🔌 User 7 connected (socket: 32y5I7rIyffMtDe-AAAL). Total online: 1","service":"notification-service","timestamp":"2026-05-16 05:30:17"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 05:30:17"}
+{"level":"info","message":"📢 /notify: userId=2, event=new_order_pending","service":"notification-service","timestamp":"2026-05-16 05:30:43"}
+{"level":"warn","message":"⚠️ User 2 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 05:30:43"}
+{"level":"warn","message":"[FCM] User 2 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 05:30:43"}
+{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-16 05:31:13"}
+{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-16 05:31:13"}
+{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-16 05:31:13"}
+{"level":"info","message":"🚀 Notification Service (HTTP + WS) đang chạy tại cổng 3006","service":"notification-service","timestamp":"2026-05-16 05:31:13"}
+{"level":"info","message":"New client connected: PwCtRoH676tO3juaAAAB","service":"notification-service","timestamp":"2026-05-16 05:31:16"}
+{"level":"info","message":"🔌 User 7 connected (socket: PwCtRoH676tO3juaAAAB). Total online: 1","service":"notification-service","timestamp":"2026-05-16 05:31:16"}
+{"level":"info","message":"❎ User 7 disconnected (socket: PwCtRoH676tO3juaAAAB).","service":"notification-service","timestamp":"2026-05-16 05:31:24"}
+{"level":"info","message":"New client connected: Tjf7Q0m5nsjFrm4yAAAD","service":"notification-service","timestamp":"2026-05-16 05:31:24"}
+{"level":"info","message":"🔌 User 7 connected (socket: Tjf7Q0m5nsjFrm4yAAAD). Total online: 1","service":"notification-service","timestamp":"2026-05-16 05:31:24"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 05:31:24"}
+{"level":"info","message":"❎ User 7 disconnected (socket: Tjf7Q0m5nsjFrm4yAAAD).","service":"notification-service","timestamp":"2026-05-16 05:31:25"}
+{"level":"info","message":"New client connected: IZs7hd6cRu7Ztt40AAAF","service":"notification-service","timestamp":"2026-05-16 05:31:25"}
+{"level":"info","message":"🔌 User 7 connected (socket: IZs7hd6cRu7Ztt40AAAF). Total online: 1","service":"notification-service","timestamp":"2026-05-16 05:31:25"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 05:31:25"}
+{"level":"error","message":"❌ Lỗi khi khởi tạo Firebase Admin SDK!","service":"notification-service","timestamp":"2026-05-16 06:14:14"}
+{"level":"error","message":"Hãy đảm bảo file 'firebase-admin-sdk.json' tồn tại trong thư mục services/notification-service/","service":"notification-service","timestamp":"2026-05-16 06:14:14"}
+{"level":"error","message":"/app/firebase-admin-sdk.json: Unexpected end of JSON input","service":"notification-service","timestamp":"2026-05-16 06:14:14"}
+{"level":"info","message":"🚀 Notification Service (HTTP + WS) đang chạy tại cổng 3006","service":"notification-service","timestamp":"2026-05-16 06:14:15"}
+{"level":"info","message":"New client connected: J2J_HECMft87lVu_AAAB","service":"notification-service","timestamp":"2026-05-16 06:14:16"}
+{"level":"info","message":"🔌 User 7 connected (socket: J2J_HECMft87lVu_AAAB). Total online: 1","service":"notification-service","timestamp":"2026-05-16 06:14:16"}
+{"level":"info","message":"❎ User 7 disconnected (socket: J2J_HECMft87lVu_AAAB).","service":"notification-service","timestamp":"2026-05-16 06:14:41"}
+{"level":"info","message":"New client connected: yekzhAFz0SWphTVwAAAD","service":"notification-service","timestamp":"2026-05-16 06:14:42"}
+{"level":"info","message":"🔌 User 7 connected (socket: yekzhAFz0SWphTVwAAAD). Total online: 1","service":"notification-service","timestamp":"2026-05-16 06:14:42"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 06:14:42"}
+{"level":"info","message":"❎ User 7 disconnected (socket: yekzhAFz0SWphTVwAAAD).","service":"notification-service","timestamp":"2026-05-16 06:14:43"}
+{"level":"info","message":"New client connected: ZZ7kpR4hr3tLKSmdAAAF","service":"notification-service","timestamp":"2026-05-16 06:14:47"}
+{"level":"info","message":"🔌 User 7 connected (socket: ZZ7kpR4hr3tLKSmdAAAF). Total online: 1","service":"notification-service","timestamp":"2026-05-16 06:14:47"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 06:14:47"}
+{"level":"info","message":"❎ User 7 disconnected (socket: ZZ7kpR4hr3tLKSmdAAAF).","service":"notification-service","timestamp":"2026-05-16 06:16:43"}
+{"level":"info","message":"New client connected: STLZYbAUY6sIQCMZAAAH","service":"notification-service","timestamp":"2026-05-16 06:16:48"}
+{"level":"info","message":"🔑 FCM token registered for user 2","service":"notification-service","timestamp":"2026-05-16 06:16:48"}
+{"level":"info","message":"🔌 User 2 connected (socket: STLZYbAUY6sIQCMZAAAH). Total online: 1","service":"notification-service","timestamp":"2026-05-16 06:16:48"}
+{"level":"info","message":"📢 /notify: userId=4, event=new_task","service":"notification-service","timestamp":"2026-05-16 06:16:58"}
+{"level":"warn","message":"⚠️ User 4 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 06:16:58"}
+{"level":"warn","message":"[FCM] User 4 không có FCM token.","service":"notification-service","timestamp":"2026-05-16 06:16:58"}
+{"level":"info","message":"📢 /notify: userId=7, event=order_status_updated","service":"notification-service","timestamp":"2026-05-16 06:16:58"}
+{"level":"warn","message":"⚠️ User 7 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 06:16:58"}
+{"level":"error","message":"[FCM] ❌ Lỗi khi gửi notification cho User 7: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.","service":"notification-service","timestamp":"2026-05-16 06:16:58"}
+{"level":"info","message":"❎ User 2 disconnected (socket: STLZYbAUY6sIQCMZAAAH).","service":"notification-service","timestamp":"2026-05-16 06:17:01"}
+{"level":"info","message":"New client connected: TuZ2lczfzRSOIMZGAAAJ","service":"notification-service","timestamp":"2026-05-16 06:17:04"}
+{"level":"info","message":"🔑 FCM token registered for user 3","service":"notification-service","timestamp":"2026-05-16 06:17:04"}
+{"level":"info","message":"🔌 User 3 connected (socket: TuZ2lczfzRSOIMZGAAAJ). Total online: 1","service":"notification-service","timestamp":"2026-05-16 06:17:04"}
+{"level":"info","message":"❎ User 3 disconnected (socket: TuZ2lczfzRSOIMZGAAAJ).","service":"notification-service","timestamp":"2026-05-16 06:17:06"}
+{"level":"info","message":"New client connected: eoi3j0YecRUQYiHmAAAL","service":"notification-service","timestamp":"2026-05-16 06:17:17"}
+{"level":"info","message":"🔑 FCM token registered for user 3","service":"notification-service","timestamp":"2026-05-16 06:17:17"}
+{"level":"info","message":"🔌 User 3 connected (socket: eoi3j0YecRUQYiHmAAAL). Total online: 1","service":"notification-service","timestamp":"2026-05-16 06:17:18"}
+{"level":"info","message":"❎ User 3 disconnected (socket: eoi3j0YecRUQYiHmAAAL).","service":"notification-service","timestamp":"2026-05-16 06:17:22"}
+{"level":"info","message":"New client connected: CHN73DzhkUj3vOTNAAAN","service":"notification-service","timestamp":"2026-05-16 06:17:27"}
+{"level":"info","message":"🔌 User 4 connected (socket: CHN73DzhkUj3vOTNAAAN). Total online: 1","service":"notification-service","timestamp":"2026-05-16 06:17:27"}
+{"level":"info","message":"🔑 FCM token registered for user 4","service":"notification-service","timestamp":"2026-05-16 06:17:27"}
+{"level":"info","message":"📢 /notify: userId=7, event=order_status_updated","service":"notification-service","timestamp":"2026-05-16 06:17:30"}
+{"level":"warn","message":"⚠️ User 7 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 06:17:30"}
+{"level":"error","message":"[FCM] ❌ Lỗi khi gửi notification cho User 7: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.","service":"notification-service","timestamp":"2026-05-16 06:17:30"}
+{"level":"info","message":"📢 /notify: userId=7, event=order_status_updated","service":"notification-service","timestamp":"2026-05-16 06:17:41"}
+{"level":"warn","message":"⚠️ User 7 offline → gửi FCM notification...","service":"notification-service","timestamp":"2026-05-16 06:17:41"}
+{"level":"error","message":"[FCM] ❌ Lỗi khi gửi notification cho User 7: The default Firebase app does not exist. Make sure you call initializeApp() before using any of the Firebase services.","service":"notification-service","timestamp":"2026-05-16 06:17:41"}
+{"level":"info","message":"❎ User 4 disconnected (socket: CHN73DzhkUj3vOTNAAAN).","service":"notification-service","timestamp":"2026-05-16 06:17:43"}
+{"level":"info","message":"New client connected: 3XmA5rz55W4oUkLIAAAP","service":"notification-service","timestamp":"2026-05-16 06:17:47"}
+{"level":"info","message":"🔑 FCM token registered for user 7","service":"notification-service","timestamp":"2026-05-16 06:17:47"}
+{"level":"info","message":"🔌 User 7 connected (socket: 3XmA5rz55W4oUkLIAAAP). Total online: 1","service":"notification-service","timestamp":"2026-05-16 06:17:47"}

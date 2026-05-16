@@ -1,0 +1,50 @@
+/* File: web-app/src/pages/AdminUserManagementPage.css */
+
+.admin-user-management {
+    /* Tái sử dụng style từ .admin-dashboard */
+    align-items: flex-start !important;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.admin-header h1 {
+    margin: 0;
+}
+
+/* Tái sử dụng .admin-table từ StudioAdminDashboard.css */
+/* Thêm style cho các nút hành động */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons .form-button {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+
+.form-button.danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.form-button.danger:hover {
+    background-color: #c82333;
+}
+
+/* Thêm màu cho các role badge (tương tự status-badge) */
+.role-customer { background-color: #6c757d; }
+.role-coordinator { background-color: #17a2b8; }
+.role-transcriber { background-color: #007bff; }
+.role-arranger { background-color: #007bff; }
+.role-artist { background-color: #007bff; }
+.role-studio_admin { background-color: #fd7e14; }
+.role-admin { background-color: #dc3545; font-weight: bold; }
